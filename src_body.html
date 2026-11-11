@@ -1,0 +1,973 @@
+<!-- ============================================================ LOADER / CURSOR / PROGRESS -->
+<a class="skip" href="#home">Skip to content</a>
+<div id="loader" aria-hidden="true">
+  <div class="loader-badge">
+    <svg class="loader-ring" viewBox="0 0 160 160" aria-hidden="true">
+      <circle cx="80" cy="80" r="70"></circle>
+      <circle class="arc" cx="80" cy="80" r="70"></circle>
+    </svg>
+    <img src="{{ASSET:badge}}" alt="JK Industries emblem">
+  </div>
+  <div class="loader-name mono" style="font-family:var(--f-disp)">JK <b>Industries</b></div>
+  <div class="loader-bar"><i id="loadBar"></i></div>
+  <div class="loader-pct"><span id="loadPct">0</span>%</div>
+</div>
+<div id="progress" aria-hidden="true"><i></i></div>
+
+<!-- ============================================================ NAV -->
+<header id="nav">
+  <div class="wrap">
+    <a class="nav__brand" href="#home" aria-label="JK Industries — Manhole Covers & Sanitary">
+      <img class="badge" src="{{ASSET:badge}}" alt="JK Industries logo" width="46" height="46">
+      <span class="wm"><b>JK <span>Industries</span></b><i>Manhole Covers &amp; Sanitary</i></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#manufacturing">Manufacturing</a></li>
+        <li><a href="#quality">Quality</a></li>
+        <li><a href="#brochures">Brochures</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="btn btn--gold nav__cta sheen" data-open-quote data-magnet>Get A Quote<span class="arr">→</span></button>
+    <button id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav id="mmenu" aria-label="Mobile">
+  <a class="mmenu-link" href="#home"><i>01</i>Home</a>
+  <a class="mmenu-link" href="#about"><i>02</i>About Us</a>
+  <a class="mmenu-link" href="#products"><i>03</i>Products</a>
+  <a class="mmenu-link" href="#catalogue"><i>04</i>Catalogue</a>
+  <a class="mmenu-link" href="#manufacturing"><i>05</i>Manufacturing</a>
+  <a class="mmenu-link" href="#quality"><i>06</i>Quality</a>
+  <a class="mmenu-link" href="#brochures"><i>07</i>Brochures</a>
+  <a class="mmenu-link" href="#clients"><i>08</i>Clients</a>
+  <a class="mmenu-link" href="#contact"><i>09</i>Contact</a>
+  <div class="mmenu-cta"><button class="btn btn--gold" data-open-quote>Get A Quote <span class="arr">→</span></button></div>
+  <div class="mmenu-meta">jk@manholecover.in&nbsp;&nbsp;•&nbsp;&nbsp;+91 76004 47776</div>
+</nav>
+<button id="mcta" data-open-quote aria-label="Get a quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<button id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<main>
+<!-- ============================================================ S01 HERO -->
+<section class="sec hero on-dark" id="home" aria-label="Hero — engineering that supports what's below">
+  <div class="hero__aura" data-par="0.12"></div>
+  <div class="grid-bg" data-par="-0.06"></div>
+  <div class="dots-bg" data-par="-0.04"></div>
+  <div class="hero__ghost" data-par="0.05" aria-hidden="true">Below the surface</div>
+  <div class="wrap">
+    <div class="hero__copy">
+      <p class="kicker hero__kick" data-reveal>JK Industries — Since 2016 · Ahmedabad, Gujarat</p>
+      <h1 class="hero__h1" aria-label="Built strong. Engineered to last.">
+        <span class="ln split-line" data-split aria-hidden="true">Built Strong.</span>
+        <span class="ln split-line accent" data-split aria-hidden="true">Engineered To Last.</span>
+      </h1>
+      <p class="lead" data-reveal data-delay="0.9">Precision-engineered manhole covers and sanitary solutions designed for reliability, strength and everyday performance.</p>
+      <div class="hero__ctas" data-reveal data-delay="1.15">
+        <a class="btn btn--gold sheen" href="#products" data-magnet>Explore Our Products <span class="arr">→</span></a>
+        <button class="btn btn--ghost sheen" data-open-catalogue-request data-magnet>Request A Catalogue</button>
+      </div>
+      <div class="hero__trust" data-reveal data-delay="1.3">
+        <div><b class="gold mono" data-count="2016" data-from="1900">2016</b><span>Established</span></div>
+        <div><b data-count="237">0</b><span>Projects Taken</span></div>
+        <div><b data-count="100" data-suffix="+">0</b><span>Happy Clients</span></div>
+      </div>
+    </div>
+    <div class="hero__stage" id="heroStage">
+      <div class="glow"></div>
+      <canvas id="heroCanvas" aria-label="Interactive 3D manhole cover model"></canvas>
+      <div class="hero__fallback" id="heroFallback" aria-hidden="true">
+        <img src="{{ASSET:p_frp}}" alt="JK Gold FRP manhole cover">
+      </div>
+      <svg class="hero__bp" id="heroBp" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g class="bp-anim">
+          <!-- frame around the product -->
+          <rect x="33" y="30" width="54" height="54" stroke-dasharray="4 4" opacity=".38"/>
+          <circle cx="60" cy="57" r="33" stroke-dasharray="3 5" opacity=".22"/>
+          <!-- corner plus marks -->
+          <path d="M10 6 h8 M14 2 v8" opacity=".55"/>
+          <path d="M102 6 h8 M114 2 v8" opacity=".55" transform="translate(-8 0)"/>
+          <path d="M10 106 h8 M14 102 v8" opacity=".55"/>
+          <path d="M102 106 h8 M114 102 v8" opacity=".55" transform="translate(-8 0)"/>
+          <!-- datum A (top) -->
+          <path d="M60 8 v14" class="bp-gold"/>
+          <path d="M60 26 l-2.2 -4.6 h4.4 z" class="bp-fill bp-gold-f"/>
+          <text x="63" y="12" class="t-gold">DATUM A</text>
+          <!-- datum B (bottom) -->
+          <path d="M60 112 v-14" opacity=".7"/>
+          <path d="M60 94 l-2.2 4.6 h4.4 z" class="bp-fill"/>
+          <text x="63" y="110">DATUM B</text>
+          <!-- centre line -->
+          <line x1="5" y1="57" x2="33" y2="57" opacity=".5" stroke-dasharray="6 3"/>
+          <line x1="87" y1="57" x2="115" y2="57" opacity=".5" stroke-dasharray="6 3"/>
+          <text x="6" y="60.5">C/L</text>
+          <!-- lock callout -->
+          <circle cx="74" cy="96" r="1.2" class="bp-fill"/>
+          <line x1="74" y1="96" x2="96" y2="96" opacity=".7"/>
+          <text x="74" y="101" class="t-gold">LOCK + KEY</text>
+          <!-- anti-theft callout -->
+          <circle cx="46" cy="84" r="1.2" class="bp-fill"/>
+          <line x1="46" y1="84" x2="30" y2="84" opacity=".7"/>
+          <text x="30" y="80" text-anchor="end">ANTI-THEFT</text>
+          <!-- series tag -->
+          <text x="33" y="26" class="t-gold">JK EXTRA HEAVY</text>
+          <text x="33" y="92" text-anchor="middle">SIZE ON REQUEST</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- ============================================================ ABOUT STRIP -->
+<section class="sec about-strip" id="about" aria-label="About JK Industries">
+  <div class="grid-bg grid-bg--l" data-par="-0.05"></div>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <p class="kicker kicker--light" data-reveal>Who we are</p>
+        <h2 class="h-sec" data-reveal data-delay=".1" style="color:var(--ink)">We deliver manhole covers<br>&amp; <span style="color:transparent;-webkit-text-stroke:1.5px #B98200">sanitary products.</span></h2>
+        <p class="blurb" data-reveal data-delay=".2">At <b>JK Industries</b>, we are the perfect blend of quality and hard-working minds — a dedicated creative team, out-of-the-box thinking backed by data, analytics and rigorous project management. Best suited to consumer requirements with ambitious growth plans.</p>
+      </div>
+      <div class="quote-card" data-reveal data-delay=".3">
+        <div class="quote-mark" aria-hidden="true">“</div>
+        <div>
+          <blockquote>Quality product is not our act, it is habit.</blockquote>
+          <footer>— Mr. Karan Gadhvi · Founder</footer>
+        </div>
+      </div>
+    </div>
+    <div class="values">
+      <div data-reveal><span class="vi">/01</span><h3>Meeting Expectations</h3><p>Always meeting and exceeding customer expectations with every dispatch.</p></div>
+      <div data-reveal data-delay=".08"><span class="vi">/02</span><h3>Reputation First</h3><p>A reputation for excellence built on dependable products and service.</p></div>
+      <div data-reveal data-delay=".16"><span class="vi">/03</span><h3>Responsive</h3><p>Responsive, timely communication and an efficient supply-management system.</p></div>
+      <div data-reveal data-delay=".24"><span class="vi">/04</span><h3>Modern Methods</h3><p>Using the latest technology available and innovative solutions.</p></div>
+      <div data-reveal data-delay=".32"><span class="vi">/05</span><h3>Partnerships</h3><p>We build partnerships — transparent systems and a wide distribution network.</p></div>
+      <div data-reveal data-delay=".4" style="background:var(--charcoal);color:#fff"><span class="vi" style="color:var(--gold)">EST. 2016</span><h3>Ahmedabad · Gujarat</h3><p style="color:#AAB7BE">Serving infrastructure projects across India.</p></div>
+    </div>
+    <p style="text-align:center;margin-top:34px" class="mono" data-reveal>
+      <span style="font-size:11px;letter-spacing:.22em;color:#8C999F;text-transform:uppercase">2016 Established · 2017 Emerging in the industry · 2018 Best-quality products delivered · 2020 Global presence · 2022 Trusted by the industry</span>
+    </p>
+  </div>
+</section>
+
+<!-- connector 1: about → products continuity band -->
+<div class="connector connector--dark" id="cn1" aria-hidden="true" style="height:30vh">
+  <div class="fill-band" style="background:linear-gradient(180deg,var(--paper),#0C1013)"></div>
+  <div class="cn-label" id="cn1label">Approaching product index — 10 engineered series</div>
+</div>
+
+<!-- ============================================================ S02 PRODUCTS -->
+<section class="sec products on-dark" id="products" aria-label="Our products">
+  <div class="products__bg products__bg--tech" id="pbgTech"></div>
+  <div class="products__bg products__bg--hex" id="pbgHex"></div>
+  <div class="products__bg products__bg--diag" id="pbgDiag"></div>
+  <div class="pt-head wrap">
+    <p class="kicker" data-reveal>Section 02 — Product Index</p>
+    <div class="head-grid">
+      <h2 class="h-sec" data-reveal data-delay=".1">Our <span class="gold-text">Products</span></h2>
+      <p class="subnote" data-reveal data-delay=".2"><i></i>Scroll to travel the range</p>
+    </div>
+    <p class="lead" data-reveal data-delay=".15">Engineered solutions for modern infrastructure and sanitary applications — manhole frames &amp; covers, checkered sheets, flush tanks and taps.</p>
+  </div>
+  <div class="hw">
+    <div class="track" id="pTrack">
+      <!-- card template repeated; built inline (static markup for SEO) -->
+      <article class="pcard" data-tilt data-i="0" data-theme="tech">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_ldpe" alt="LDPE manhole cover — light grey square cover,JK logo embossed"></div>
+        <p class="pcard__tag">01 / Low Density Polyethylene</p>
+        <h3 class="pcard__name">LDPE Manhole<br>Frame &amp; Covers</h3>
+        <p class="pcard__mat">Strong &amp; unbreakable polymer covers with a full replacement guarantee.</p>
+        <div class="pcard__specs"><span>Load 6–7 T</span><span>4 Colours</span><span>Replacement Warranty</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="0">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/LDPE-01</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="1" data-theme="hex">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_frp" alt="FRP manhole cover — light grey square cover with basket-weave pattern"></div>
+        <p class="pcard__tag">02 / Fibre Reinforced Plastic</p>
+        <h3 class="pcard__name">FRP Manhole<br>Frame &amp; Covers</h3>
+        <p class="pcard__mat">JK Gold series — granite finish, high impact resistance, no scrap value.</p>
+        <div class="pcard__specs"><span>Load 2.5–40 T</span><span>Granite Finish</span><span>Anti-Theft</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="1">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/FRP-02</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="2" data-theme="diag">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_pvc" alt="PVC manhole cover — dark square cover with star-tile emboss pattern"></div>
+        <p class="pcard__tag">03 / Virgin PVC</p>
+        <h3 class="pcard__name">PVC Manhole<br>Frame &amp; Covers</h3>
+        <p class="pcard__mat">100% virgin plastic — high strength-to-weight ratio and long service life.</p>
+        <div class="pcard__specs"><span>Lightweight</span><span>20–30 Yr Life</span><span>Abrasion Resistant</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="2">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/PVC-03</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="3" data-theme="tech">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_msgi" alt="MS/GI manhole cover — black chequered diamond plate cover"></div>
+        <p class="pcard__tag">04 / Mild Steel · Galvanised Iron</p>
+        <h3 class="pcard__name">MS / GI Manhole<br>Frame &amp; Covers</h3>
+        <p class="pcard__mat">Chequered steel plate covers — rust-proof coating system and anti-theft design.</p>
+        <div class="pcard__specs"><span>Plate 2.6 &amp; 6 mm</span><span>Load 3–4 T</span><span>GI 25µ + Powder 85µ</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="3">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/MSGI-04</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="4" data-theme="hex">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_jkhigh" alt="JK Hi-Tech PVC manhole cover — dark diamond plate pattern cover with locking tab"></div>
+        <p class="pcard__tag">05 / German Technology</p>
+        <h3 class="pcard__name">JK Hi-Tech PVC<br>Frame &amp; Covers</h3>
+        <p class="pcard__mat">Lock &amp; key system with hinges — chemical &amp; slip resistant, weatherproof.</p>
+        <div class="pcard__specs"><span>Lock + Hinges</span><span>Slip Resistant</span><span>Waterproof</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="4">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/HT-05</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="5" data-theme="diag">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_jkextra" alt="JK Extra Heavy High-Tech PVC manhole cover with MADE IN INDIA engraving"></div>
+        <p class="pcard__tag">06 / Extra Heavy Duty</p>
+        <h3 class="pcard__name">JK Extra Heavy<br>High-Tech PVC</h3>
+        <p class="pcard__mat">Heavy-duty long-lasting cover with 2-key locking system and child safety.</p>
+        <div class="pcard__specs"><span>Up To 12 T</span><span>2-Key Locking</span><span>Child Safety</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="5">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/XH-06</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="6" data-theme="tech">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_hdpe" alt="HDPE manhole cover — dark grey cover with floral emboss and JK emblem"></div>
+        <p class="pcard__tag">07 / High Density Polyethylene</p>
+        <h3 class="pcard__name">HDPE Manhole<br>Frame &amp; Covers</h3>
+        <p class="pcard__mat">Reliable HDPE covers backed by a lifetime warranty commitment.</p>
+        <div class="pcard__specs"><span>Load 3–4 T</span><span>Lifetime Warranty</span><span>Full Replacement</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="6">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/HDPE-07</span>
+        </div>
+      </article>
+      <article class="pcard" data-tilt data-i="7" data-theme="hex">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span>
+          <svg viewBox="0 0 200 200" style="max-width:74%;max-height:78%" aria-label="Checkered steel sheet and coil — technical render">
+            <defs>
+              <linearGradient id="ckG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#4A565E"/><stop offset=".5" stop-color="#2A333B"/><stop offset="1" stop-color="#161C22"/>
+              </linearGradient>
+              <linearGradient id="ckS" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#3A444D"/><stop offset=".5" stop-color="#5A6771"/><stop offset="1" stop-color="#232B32"/>
+              </linearGradient>
+              <pattern id="ckP" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect width="26" height="26" fill="url(#ckG)"/>
+                <path d="M13 4 l4.5 9 -4.5 9 -4.5-9 z" fill="#5E6B75" opacity=".55"/>
+                <path d="M13 6.5 l2.8 6.5 -2.8 6.5 -2.8-6.5 z" fill="#77838B" opacity=".5"/>
+              </pattern>
+            </defs>
+            <g transform="rotate(-18 100 100)">
+              <rect x="18" y="34" width="128" height="128" rx="4" fill="url(#ckP)" stroke="#5E6B75" stroke-opacity=".4"/>
+              <ellipse cx="132" cy="66" rx="46" ry="16" fill="url(#ckS)"/>
+              <ellipse cx="132" cy="58" rx="46" ry="16" fill="url(#ckS)" opacity=".92"/>
+              <ellipse cx="132" cy="50" rx="46" ry="16" fill="#4A565E"/>
+              <ellipse cx="132" cy="50" rx="18" ry="6" fill="#141A20"/>
+            </g>
+            <path d="M20 40 l0 -12 12 0" stroke="#FFB600" stroke-width="1.6" fill="none"/>
+            <path d="M180 160 l0 12 -12 0" stroke="#FFB600" stroke-width="1.6" fill="none"/>
+            <text x="26" y="30" font-family="IBM Plex Mono,monospace" font-size="7" letter-spacing="2" fill="#8FA5B1">SHEET 6 MM</text>
+            <text x="120" y="184" font-family="IBM Plex Mono,monospace" font-size="7" letter-spacing="2" fill="#8FA5B1">COIL OD — ON REQUEST</text>
+          </svg>
+        </div>
+        <p class="pcard__tag">08 / Steel Section</p>
+        <h3 class="pcard__name">Checkered<br>Sheets &amp; Coils</h3>
+        <p class="pcard__mat">Tread-plate sheets and coils — sizes, thicknesses and finish on request.</p>
+        <div class="pcard__specs"><span>Tread Pattern</span><span>Coil Supply</span><span>Specs On Request</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="7">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/CKS-08</span>
+        </div>
+      </article>
+      <article class="pcard pcard--light" data-tilt data-i="8" data-theme="diag">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_flush" alt="White PVC flush tank — sanitary cistern"></div>
+        <p class="pcard__tag">09 / Sanitaryware</p>
+        <h3 class="pcard__name">Flush<br>Tanks</h3>
+        <p class="pcard__mat">Dependable flushing cisterns for everyday sanitary requirements.</p>
+        <div class="pcard__specs"><span>Specifications On Request</span><span>Project Supply</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="8">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/FT-09</span>
+        </div>
+      </article>
+      <article class="pcard pcard--light" data-tilt data-i="9" data-theme="hex">
+        <span class="pcard__glow" aria-hidden="true"></span>
+        <div class="pcard__pic"><span class="pedestal"></span><img data-k="p_ptmt" alt="White PTMT plastic tap"></div>
+        <p class="pcard__tag">10 / PTMT · White</p>
+        <h3 class="pcard__name">PTMT Taps</h3>
+        <p class="pcard__mat">Lightweight thermoplastic taps engineered for corrosion-free service.</p>
+        <div class="pcard__specs"><span>White Finish</span><span>Specs On Request</span></div>
+        <div class="pcard__foot">
+          <button class="explore" data-prod="9">Explore Product <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
+          <span class="pcard__idx">J/PTMT-10</span>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="collapse-stage" aria-hidden="true"></div>
+</section>
+
+<!-- connector 2: products → catalogue (cards converge into the catalogue book) -->
+<div class="connector connector--dark" id="cn2" aria-hidden="true" style="height:130vh">
+  <div class="fill-band" style="background:linear-gradient(180deg,#0C1013,#07090B)"></div>
+  <div class="cn2-stage">
+    <div class="cn-thumbs" id="cnThumbs">
+      <div class="cn-thumb" data-l="01 LDPE"><img data-k="p_ldpe" alt=""></div>
+      <div class="cn-thumb" data-l="02 FRP"><img data-k="p_frp" alt=""></div>
+      <div class="cn-thumb" data-l="03 PVC"><img data-k="p_pvc" alt=""></div>
+      <div class="cn-thumb" data-l="04 MS-GI"><img data-k="p_msgi" alt=""></div>
+      <div class="cn-thumb" data-l="05 HI-TECH"><img data-k="p_jkhigh" alt=""></div>
+      <div class="cn-thumb" data-l="06 EXTRA"><img data-k="p_jkextra" alt=""></div>
+      <div class="cn-thumb" data-l="07 HDPE"><img data-k="p_hdpe" alt=""></div>
+    </div>
+    <div class="collapse-book" id="collapseBook">
+      <span class="cb-tag kicker">Next — Product Catalogue</span>
+      <img class="cb-img" data-k="p_pvc" alt="">
+      <h3 class="cb-title">JK Industries<br>Product Catalogue</h3>
+    </div>
+  </div>
+  <div class="cn-label" id="cn2label">Range collapsed — opening the digital catalogue</div>
+</div>
+
+<!-- connector 2 handled in products pin collapse -->
+
+<!-- ============================================================ S03 CATALOGUE -->
+<section class="sec catalogue on-dark" id="catalogue" aria-label="Product catalogue">
+  <div class="dots catalogue__dots" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cat-head">
+      <div>
+        <p class="kicker" data-reveal>Section 03 — Digital Catalogue</p>
+        <h2 class="h-sec" data-reveal data-delay=".08">The <span class="gold-text">Engineering</span><br>Catalogue</h2>
+        <p class="lead" data-reveal data-delay=".16" style="color:#AEBAC1">A bound edition of all 10 engineered series. Turn pages, jump chapters, search the range — and request quotations straight from any sheet.</p>
+      </div>
+      <div class="cat-quick" data-reveal data-delay=".2">
+        <span class="cq-line">10 series · 13 sheets</span>
+        <span class="cq-line">Vol-01 · Edition <b id="catYear">2026</b></span>
+        <button class="btn btn--gold sheen" data-open-quote data-pref="Catalogue Request">Request Catalogue <span class="arr">→</span></button>
+      </div>
+    </div>
+
+    <div class="book-wrap cata-stage" id="bookWrap">
+      <div class="cat-controls">
+        <div class="cat-tabs" id="catTabs" data-reveal role="group" aria-label="Catalogue chapters">
+          <button class="chip active" data-ch="0">Cover</button>
+          <button class="chip" data-ch="1">Contents</button>
+          <button class="chip" data-ch="2">Manholes</button>
+          <button class="chip" data-ch="6">Hi-Tech</button>
+          <button class="chip" data-ch="7">Heavy</button>
+          <button class="chip" data-ch="9">Sheets</button>
+          <button class="chip" data-ch="10">Sanitary</button>
+          <button class="chip" data-ch="13">Contact</button>
+        </div>
+        <div class="cat-tools" data-reveal data-delay=".08">
+          <div class="cata-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input id="cataSearch" type="search" placeholder="Search products, materials…" aria-label="Search catalogue">
+          </div>
+          <button class="nav-btn" id="prevPage" aria-label="Previous page"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <span class="page-label" id="pageLabel">COVER</span>
+          <button class="nav-btn" id="nextPage" aria-label="Next page"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+
+      <div class="desk">
+        <div class="desk-glow" aria-hidden="true"></div>
+        <div class="book" id="book">
+          <div class="book__inner" id="bookInner"></div>
+        </div>
+        <div class="dots book-dots" id="bookDots" role="group" aria-label="Catalogue pages"></div>
+      </div>
+
+      <div class="cat-foot">
+        <p class="cat-note" data-reveal>Dimensions, load ratings &amp; standards marked <em>“on request”</em> are shared officially via our team — replacement terms are published per product family.</p>
+        <div class="cat-foot-acts" data-reveal data-delay=".08">
+          <button class="btn btn--ghost sheen" data-open-quote>Get A Custom Quotation</button>
+          <a class="btn btn--gold sheen" href="https://wa.me/+917600447776" target="_blank" rel="noopener">Chat On WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- connector 3 -->
+<div class="connector" id="cn3" aria-hidden="true" style="height:18vh">
+  <div class="fill-band" style="background:linear-gradient(180deg,#080B0F,#050708)"></div>
+  <div class="cn-label" id="cn3label">Bound reference closed — next stop: the production line</div>
+</div>
+
+<!-- ============================================================ S04 MANUFACTURING — THE LINE -->
+<section class="sec factory on-dark" id="manufacturing" aria-label="Manufacturing journey">
+  <div class="f-head wrap">
+    <p class="kicker" data-reveal>Section 04 — The Line</p>
+    <div class="fh-grid">
+      <h2 class="h-sec" data-reveal data-delay=".1">From Material<br>To <span class="gold-text">Performance</span></h2>
+      <p class="lead" data-reveal data-delay=".18">Driven by quality-focused processes and a commitment to delivering reliable products for infrastructure requirements — travel the line: raw grade to stamped, checked and dispatched covers.</p>
+    </div>
+    <div class="stations" id="stations" data-reveal data-delay=".24" aria-hidden="true">
+      <span class="on">01 Material</span><i></i>
+      <span>02 Design</span><i></i>
+      <span>03 Fabrication</span><i></i>
+      <span>04 Inspection</span><i></i>
+      <span>05 Dispatch</span>
+    </div>
+  </div>
+
+  <div class="line" id="theLine">
+    <div class="line__spine" aria-hidden="true">
+      <span class="spine-track"></span>
+      <b id="spineFill" aria-hidden="true"></b>
+      <b class="node" data-n="0"></b><b class="node" data-n="1"></b><b class="node" data-n="2"></b><b class="node" data-n="3"></b><b class="node" data-n="4"></b>
+      <span class="rider" id="rider" aria-hidden="true"><img data-k="p_pvc" alt=""></span>
+    </div>
+
+    <!-- 01 · Raw materials -->
+    <article class="lstage" data-s="0">
+      <span class="ghost-num" aria-hidden="true">01</span>
+      <div class="media">
+        <figure class="media--contain">
+          <img data-k="p_msgi" alt="Chequered steel plate — composite material sample">
+          <div class="m-blueprint" aria-hidden="true"></div>
+        </figure>
+        <span class="m-tag">Composite line sample · polymer + steel sections</span>
+      </div>
+      <div class="copy">
+        <p class="step"><b>01</b><span>Raw material selection</span></p>
+        <h3>Right grade,<br>no compromise.</h3>
+        <p class="desc">Every build starts with the correct material grade — polymer resins, fibre reinforcement and steel sections specified for the load they must carry.</p>
+        <div class="chips"><span>Resin batches</span><span>Fibre rolls</span><span>Steel sections</span></div>
+      </div>
+    </article>
+
+    <!-- 02 · Design & preparation -->
+    <article class="lstage alt" data-s="1">
+      <span class="ghost-num" aria-hidden="true">02</span>
+      <div class="media">
+        <figure class="media--contain">
+          <img data-k="p_frp" alt="FRP cover on the design board — JK Gold series">
+          <svg class="m-dims" viewBox="0 0 200 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g fill="none" stroke="#8FA5B1" stroke-width=".8">
+              <path d="M18 20 v108 M18 22 h152" opacity=".35" stroke-dasharray="4 6"/>
+              <path d="M42 34 h116 M42 34 v92 M158 34 v92" stroke-dasharray="3 5" opacity=".45"/>
+              <circle cx="100" cy="80" r="24" stroke-dasharray="4 4" opacity=".5"/>
+              <path d="M100 10 v12 M100 22 l-2.2 -4.4 h4.4 z" fill="#FFB600" stroke="none"/>
+              <text x="104" y="16" font-family="IBM Plex Mono,monospace" font-size="6" letter-spacing="1" fill="#FFB600">PL-DATUM A</text>
+              <path d="M42 136 h116 M60 136 v-8 M140 136 v-8" opacity=".55"/>
+              <text x="72" y="146" font-family="IBM Plex Mono,monospace" font-size="6" letter-spacing="1" fill="#8FA5B1">FRAME SET — DARK</text>
+            </g>
+          </svg>
+        </figure>
+        <span class="m-tag">Design board · JK Gold FRP series</span>
+      </div>
+      <div class="copy">
+        <p class="step"><b>02</b><span>Design &amp; preparation</span></p>
+        <h3>Drawn for<br>loads below.</h3>
+        <p class="desc">Cover families prepared to engineered detail — emboss patterns, frames, hinges and locking systems set up before fabrication begins.</p>
+        <div class="chips"><span>Tooling prep</span><span>Hinge sets</span><span>Lock system</span></div>
+      </div>
+    </article>
+
+    <!-- 03 · Fabrication — full-bleed -->
+    <article class="lstage lstage--wide" data-s="2">
+      <span class="ghost-num" aria-hidden="true">03</span>
+      <div class="ff">
+        <figure class="media--bleed">
+          <img data-k="f_mill" alt="Covers being cast on the production floor — manhole casting mill">
+          <span class="m-shade" aria-hidden="true"></span>
+        </figure>
+        <div class="fpanel">
+          <p class="step"><b>03</b><span>Manufacturing &amp; fabrication</span></p>
+          <h3>On the line,<br>cover by cover.</h3>
+          <p class="desc">Production and fabrication across polymer and steel lines — star-tile PVC embosses, chequered plates and frame sets taking shape, batch after batch.</p>
+          <div class="chips"><span>Star-tile emboss</span><span>Chequered plates</span><span>Frame sets</span></div>
+          <span class="m-tag">Production photograph published by JK Industries</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 · Inspection -->
+    <article class="lstage alt" data-s="3">
+      <span class="ghost-num" aria-hidden="true">04</span>
+      <div class="media">
+        <figure class="media--bleed">
+          <img data-k="f_weld" alt="Finishing and metalwork with sparks on the fabrication line">
+          <span class="m-shade" aria-hidden="true"></span>
+          <span class="scanbar" id="scanSweep" aria-hidden="true"></span>
+        </figure>
+        <span class="m-tag">Fabrication imagery · published by JK Industries</span>
+      </div>
+      <div class="copy">
+        <p class="step"><b>04</b><span>Finishing &amp; quality inspection</span></p>
+        <h3>Checked before<br>it ever ships.</h3>
+        <p class="desc">Fit, surface and finishing reviewed across production batches — dependable build quality approved before dispatch goes ahead.</p>
+        <div class="chips"><span>Fit &amp; finish</span><span>Batch review</span><span>Scan check</span></div>
+      </div>
+    </article>
+
+    <!-- 05 · Dispatch -->
+    <article class="lstage" data-s="4">
+      <span class="ghost-num" aria-hidden="true">05</span>
+      <div class="media">
+        <figure class="media--contain">
+          <img data-k="p_jkextra" alt="JK Extra Heavy High-Tech PVC cover — Made in India">
+          <div class="m-ped" aria-hidden="true"></div>
+        </figure>
+        <span class="m-tag">JK Extra Heavy · Made in India · ready to ship</span>
+      </div>
+      <div class="copy">
+        <p class="step"><b>05</b><span>Dispatch readiness</span></p>
+        <h3>Locked, stacked<br>&amp; ready to work.</h3>
+        <p class="desc">Final products locked with 2-key systems, stacked and wrapped for infrastructure sites — ready to join the distribution network.</p>
+        <div class="chips"><span>2-key locking</span><span>Child safety</span><span>Made in India</span></div>
+        <a class="btn btn--ghost sheen" href="#catalogue" style="margin-top:26px">See it in the catalogue <span class="arr">→</span></a>
+      </div>
+    </article>
+  </div>
+
+  <!-- founder quote -->
+  <div class="f-quote" id="fQuote">
+    <span class="qmark" aria-hidden="true">“</span>
+    <div>
+      <blockquote>Quality product is not our act, <span class="gold-text">it is habit.</span></blockquote>
+      <footer>— Mr. Karan Gadhvi · Founder, JK Industries</footer>
+    </div>
+  </div>
+
+  <div class="foot-note">Factory imagery published on manholecover.in shown inline · Process journey stages shown for illustration</div>
+</section>
+
+<!-- connector 4 -->
+<div class="connector" id="cn4" aria-hidden="true" style="height:30vh">
+  <div class="fill-band" id="cn4fill" style="background:linear-gradient(180deg,#050708,var(--paper))"></div>
+</div>
+
+<!-- ============================================================ S05 QUALITY -->
+<section class="sec quality" id="quality" aria-label="Quality assurance">
+  <div class="grid-bg grid-bg--l" data-par="-0.05"></div>
+  <div class="inner wrap">
+    <div class="q-head">
+      <div>
+        <p class="kicker kicker--light" data-reveal>Section 05 — Quality Assurance</p>
+        <h2 class="h-sec" data-reveal data-delay=".08" style="color:var(--ink)">Quality is built into<br>every <span class="gold-text" style="color:#B98200;-webkit-text-stroke:0">detail.</span></h2>
+      </div>
+      <p class="lead" data-reveal data-delay=".16">At JK Industries, quality assurance, customer confidence and dependable product solutions are central to our approach — from raw material review to dispatch readiness.</p>
+    </div>
+
+    <div class="scan-stage" id="scanStage">
+      <img class="subject" data-k="p_frp" alt="FRP manhole cover under quality inspection — JK Gold series">
+      <div class="beam" id="qBeam" aria-hidden="true"></div>
+      <div class="callout right" style="left:70%;top:26%"><span class="cn"></span><span class="lbl">JK GOLD SERIES · FRP</span></div>
+      <div class="callout left" style="left:32%;top:44%"><span class="cn"></span><span class="lbl">GRANITE FINISH — CLIENT SPEC</span></div>
+      <div class="callout right" style="left:74%;top:58%"><span class="cn"></span><span class="lbl">LOAD RANGE 2.5–40 T</span></div>
+      <div class="callout left" style="left:30%;top:70%"><span class="cn"></span><span class="lbl">NO SCRAP VALUE — ANTI-THEFT</span></div>
+      <div class="callout right" style="left:72%;top:84%"><span class="cn"></span><span class="lbl">IMPACT RESISTANT — NO CRACK</span></div>
+      <span class="mono" style="position:absolute;bottom:14px;right:18px;font-size:9px;letter-spacing:.22em;color:#9AA6AC" aria-hidden="true">INSPECTION VIEW — QC/QFR-05 · SPECS AS PUBLISHED BY JK INDUSTRIES</span>
+    </div>
+
+    <div class="qa-steps" id="qaSteps">
+      <article><span class="no">STEP / 01</span><h3>Material Selection</h3><p>Correct grades and finishes chosen for each cover family before production begins.</p><span class="bar"><i></i></span></article>
+      <article><span class="no">STEP / 02</span><h3>Production Monitoring</h3><p>Quality-focused process supervision through manufacturing and fabrication.</p><span class="bar"><i></i></span></article>
+      <article><span class="no">STEP / 03</span><h3>Product Inspection</h3><p>Checking finishing, fit and build quality across production batches.</p><span class="bar"><i></i></span></article>
+      <article><span class="no">STEP / 04</span><h3>Final Quality Review</h3><p>Dependable final product solutions reviewed before dispatch approval.</p><span class="bar"><i></i></span></article>
+      <article><span class="no">STEP / 05</span><h3>Dispatch Readiness</h3><p>Efficient supply-management system for timely, secure delivery.</p><span class="bar"><i></i></span></article>
+    </div>
+
+    <div class="documents-row">
+      <div>
+        <p class="kicker kicker--light" style="margin-bottom:14px">Certifications &amp; documentation</p>
+        <h3>Verified documents, on request.</h3>
+        <p class="muted">We publish only what we can verify. Quality documentation, test information and product details are shared officially upon request — not added as generic badge claims on this page.</p>
+        <div class="acts">
+          <button class="btn btn--gold sheen" data-open-quote data-pref="Quality Documents Request">Request Quality Documents <span class="arr">→</span></button>
+          <a class="btn btn--ghost-d" href="tel:+917600447776" data-magnet>Call +91 76004 47776</a>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div class="row"><b>Test data</b><span>Shared on request</span></div>
+        <div class="row"><b>Standards / approvals</b><span>Discussed per product</span></div>
+        <div class="row"><b>Warranty terms</b><span>Published per family</span></div>
+        <div class="row"><b>Contact</b><span>jk@manholecover.in</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- connector 5 -->
+<div class="connector" id="cn5" aria-hidden="true" style="height:28vh">
+  <div class="fill-band" id="cn5fill" style="background:linear-gradient(180deg,var(--paper),#0C1013)"></div>
+  <div class="cn-label" id="cn5label" style="color:var(--gold)">Documents → Brochure library</div>
+</div>
+
+<!-- ============================================================ S06 BROCHURES -->
+<section class="sec brochures on-dark" id="brochures" aria-label="Brochures and resources">
+  <div class="grid-bg" data-par="-0.05"></div>
+  <div class="wrap">
+    <div class="br-head">
+      <p class="kicker" data-reveal>Section 06 — Documentation &amp; Resources</p>
+      <h2 class="h-sec" data-reveal data-delay=".08">Brochure <span class="stroke">Library</span></h2>
+      <p class="lead" data-reveal data-delay=".16" style="text-align:center">Premium product documentation by series — request any cover set and our team shares the official PDF.</p>
+    </div>
+    <div class="br-grid" id="broGrid">
+      <article class="bcover" data-bro="Manhole Covers Product Brochure">
+        <span class="bc-no">VOL / 01</span>
+        <div class="bc-top"><img data-k="badge" alt="JK Industries"><b>JK Industries</b></div>
+        <h3 class="bc-title">Manhole Covers<br>Product Brochure</h3>
+        <p class="bc-sub">The core range — LDPE, FRP, PVC, MS/GI and HDPE frame &amp; cover systems.</p>
+        <div class="bc-img"><img data-k="p_pvc" alt=""></div>
+        <div class="bc-foot"><span>PDF — on request</span><button class="rq" data-open-quote data-pref="Manhole Covers Product Brochure">Request <i>→</i></button></div>
+      </article>
+      <article class="bcover" data-bro="FRP & PVC Product Range">
+        <span class="bc-no">VOL / 02</span>
+        <div class="bc-top"><img data-k="badge" alt="JK Industries"><b>JK Industries</b></div>
+        <h3 class="bc-title">FRP &amp; PVC<br>Product Range</h3>
+        <p class="bc-sub">JK Gold FRP series and the Hi-Tech / Extra Heavy PVC families in depth.</p>
+        <div class="bc-img"><img data-k="p_frp" alt=""></div>
+        <div class="bc-foot"><span>PDF — on request</span><button class="rq" data-open-quote data-pref="FRP &amp; PVC Product Range">Request <i>→</i></button></div>
+      </article>
+      <article class="bcover" data-bro="Industrial & Sanitary Products">
+        <span class="bc-no">VOL / 03</span>
+        <div class="bc-top"><img data-k="badge" alt="JK Industries"><b>JK Industries</b></div>
+        <h3 class="bc-title">Industrial &amp;<br>Sanitary Products</h3>
+        <p class="bc-sub">Flush tanks and PTMT taps completing the sanitary side of the range.</p>
+        <div class="bc-img"><img data-k="p_flush" alt=""></div>
+        <div class="bc-foot"><span>PDF — on request</span><button class="rq" data-open-quote data-pref="Industrial &amp; Sanitary Products">Request <i>→</i></button></div>
+      </article>
+      <article class="bcover" data-bro="Complete JK Industries Product Range">
+        <span class="bc-no">VOL / 04</span>
+        <div class="bc-top"><img data-k="badge" alt="JK Industries"><b>JK Industries</b></div>
+        <h3 class="bc-title">Complete Range<br>Master Volume</h3>
+        <p class="bc-sub">Everything JK Industries manufactures — manholes, sheets, coils, sanitary.</p>
+        <div class="bc-img"><img data-k="p_jkextra" alt=""></div>
+        <div class="bc-foot"><span>PDF — on request</span><button class="rq" data-open-quote data-pref="Complete JK Industries Product Range">Request <i>→</i></button></div>
+      </article>
+    </div>
+    <p class="br-note" data-reveal>* No parallel download links — official PDFs are shared personally through email / WhatsApp.</p>
+  </div>
+</section>
+
+<!-- connector 6 -->
+<div class="connector" id="cn6" aria-hidden="true" style="height:28vh">
+  <div class="fill-band" id="cn6fill" style="background:linear-gradient(180deg,#0C1013,var(--paper))"></div>
+  <div class="cn-label" id="cn6label">Meet the partners behind the projects</div>
+</div>
+
+<!-- ============================================================ S07 CLIENTS -->
+<section class="sec clients" id="clients" aria-label="Our clients and trust">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker kicker--light" data-reveal>Section 07 — Built on trust</p>
+      <h2 class="h-sec" data-reveal data-delay=".08" style="color:var(--ink)">Built on trust.<br><span style="color:transparent;-webkit-text-stroke:1.5px #B98200">Strengthened by partnerships.</span></h2>
+      <p class="lead" data-reveal data-delay=".16">We value long-term customer relationships and work towards delivering products and solutions that meet customer expectations.</p>
+    </div>
+    <div class="marquee" data-reveal>
+      <div class="mq-t" id="mq1">
+        <div class="ltile"><img data-k="c_gcs" alt="Client — GCS"></div>
+        <div class="ltile"><img data-k="c_adani" alt="Client — Adani"></div>
+        <div class="ltile"><img data-k="c_realty" alt="Client — Realty"></div>
+        <div class="ltile"><img data-k="c_shahlon" alt="Client — Shahlon"></div>
+        <div class="ltile"><img data-k="c_constructions" alt="Client — Constructions"></div>
+      </div>
+    </div>
+    <div class="tgrid" id="tgrid">
+      <article class="tcard" data-reveal>
+        <div class="q" aria-hidden="true">“</div>
+        <p>Fast and uncomplicated service, great range of products. JK Industries is the best selling product I have ever seen.</p>
+        <div class="who"><img data-k="u1" alt=""><div><b>Mr. Dinesh Gupta</b><span>Customer review</span></div></div>
+      </article>
+      <article class="tcard" data-reveal data-delay=".08">
+        <div class="q" aria-hidden="true">“</div>
+        <p>We replaced our metal lid with this one. Was a bit skeptical buying this, but it was a solid product. I can stand on it, jump on it and it still feels strong. Good value.</p>
+        <div class="who"><img data-k="u1" alt=""><div><b>Mr. Rahul Hirave</b><span>Customer review</span></div></div>
+      </article>
+      <article class="tcard" data-reveal data-delay=".16">
+        <div class="q" aria-hidden="true">“</div>
+        <p>It's a good item, worth the price. Very happy with the purchase. Product is robust, no issues in quality.</p>
+        <div class="who"><img data-k="u2" alt=""><div><b>Ms. Suhasini Patel</b><span>Customer review</span></div></div>
+      </article>
+      <article class="tcard" data-reveal data-delay=".24">
+        <div class="q" aria-hidden="true">“</div>
+        <p>The lid is easy to open and there are holes on the side of the base to fix it permanently. Also, there is a hook to lock the lid with the base cover with a lock. The safety features of this product are awesome.</p>
+        <div class="who"><img data-k="u1" alt=""><div><b>Mr. Raj Shah</b><span>Customer review</span></div></div>
+      </article>
+      <article class="tcard" data-reveal data-delay=".32">
+        <div class="q" aria-hidden="true">“</div>
+        <p>It's a perfectly designed product… It was a perfect fit for my requirement. And the safety features of this product are awesome.</p>
+        <div class="who"><img data-k="u1" alt=""><div><b>Mr. Sushant K.</b><span>Customer review</span></div></div>
+      </article>
+      <article class="tcard" data-reveal data-delay=".4" style="background:var(--charcoal);color:#fff;display:flex;flex-direction:column;justify-content:center">
+        <p style="font-family:var(--f-disp);text-transform:uppercase;font-weight:800;font-size:26px;line-height:1;color:#fff;min-height:0;margin-top:0">100+ happy clients served with dependable product solutions.</p>
+        <button class="btn btn--gold sheen" data-open-quote style="margin-top:22px;align-self:flex-start" data-magnet>Join The Network <span class="arr">→</span></button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- connector 7 -->
+<div class="connector connector--dark" id="cn7" aria-hidden="true" style="height:26vh">
+  <div class="fill-band" id="cn7fill" style="background:linear-gradient(180deg,var(--paper),var(--bg-1))"></div>
+  <div class="cn-label" id="cn7label">Partnerships → grow with us</div>
+</div>
+
+<!-- ============================================================ S08 DEALER -->
+<section class="sec dealer on-dark" id="dealer" aria-label="Dealer and distributor enquiry">
+  <div class="inner">
+    <div class="dealer__vis">
+      <div class="bgim" role="img" aria-label="JK Extra Heavy High-Tech PVC manhole cover"></div>
+      <svg class="con-lines" viewBox="0 0 600 600" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="40" y1="120" x2="560" y2="120"/><line x1="80" y1="300" x2="520" y2="300"/><line x1="120" y1="470" x2="480" y2="470"/>
+        <text x="40" y="112">NETWORK NODE 01 — DEALERS</text>
+        <text x="80" y="292">NODE 02 — DISTRIBUTORS</text>
+        <text x="120" y="462">NODE 03 — CONTRACTORS</text>
+      </svg>
+      <div class="content">
+        <p class="kicker" data-reveal>Section 08 — Dealer &amp; Distributor Enquiry</p>
+        <h2 data-reveal data-delay=".08">Grow with<br><span class="gold-text">JK Industries</span></h2>
+        <p class="lead" data-reveal data-delay=".16">Become a part of our growing distribution network. Connect with us to explore dealer and business opportunities across manhole covers and sanitary products.</p>
+        <div class="labs" data-reveal data-delay=".24">
+          <span>Stock &amp; Distribute</span><span>Project Supply</span><span>Counter Sales</span><span>Institutional Orders</span>
+        </div>
+      </div>
+    </div>
+    <form class="dealer__form" id="dealerForm" novalidate data-form="dealer">
+      <div class="fh">
+        <p class="kicker kicker--light" style="margin-bottom:10px">Business enquiry form</p>
+        <h2 style="font-family:var(--f-disp);font-weight:800;text-transform:uppercase;font-size:clamp(24px,2.4vw,34px);color:var(--ink)">Become a channel partner</h2>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label for="d_name">Full Name <b>*</b></label><input id="d_name" name="name" type="text" autocomplete="name" required placeholder="e.g. Jignesh Patel"><span class="err">Please enter your full name.</span></div>
+        <div class="field"><label for="d_company">Company / Business Name <b>*</b></label><input id="d_company" name="company" type="text" autocomplete="organization" required placeholder="Registered trade name"><span class="err">Please enter your business name.</span></div>
+        <div class="field"><label for="d_email">Email Address <b>*</b></label><input id="d_email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@company.com"><span class="err">Enter a valid email address.</span></div>
+        <div class="field"><label for="d_phone">Phone Number <b>*</b></label><input id="d_phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[+0-9 ()-]{7,18}" placeholder="+91 00000 00000"><span class="err">Enter a valid phone number.</span></div>
+        <div class="field"><label for="d_city">City <b>*</b></label><input id="d_city" name="city" type="text" autocomplete="address-level2" required placeholder="City"><span class="err">Please enter your city.</span></div>
+        <div class="field">
+          <label for="d_state">State <b>*</b></label>
+          <select id="d_state" name="state" required autocomplete="address-level1">
+            <option value="" selected>Select state…</option>
+            <option>Gujarat</option><option>Maharashtra</option><option>Rajasthan</option><option>Madhya Pradesh</option>
+            <option>Uttar Pradesh</option><option>Delhi NCR</option><option>Punjab</option><option>Haryana</option>
+            <option>Karnataka</option><option>Telangana</option><option>Tamil Nadu</option><option>Kerala</option>
+            <option>Andhra Pradesh</option><option>West Bengal</option><option>Assam</option><option>Odisha</option>
+            <option>Bihar</option><option>Jharkhand</option><option>Chhattisgarh</option><option>Uttarakhand</option>
+            <option>Himachal Pradesh</option><option>Goa</option><option>Other / Outside India</option>
+          </select>
+          <span class="err">Please select your state.</span>
+        </div>
+        <div class="field">
+          <label for="d_btype">Business Type <b>*</b></label>
+          <select id="d_btype" name="business-type" required>
+            <option value="" selected>Select…</option>
+            <option>Dealer</option><option>Distributor</option><option>Retailer</option><option>Contractor</option>
+            <option>Builder / Developer</option><option>Architect / Consultant</option><option>Institutional / Government</option><option>Other</option>
+          </select>
+          <svg class="sel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          <span class="err">Please select your business type.</span>
+        </div>
+        <div class="field"><label for="d_qty">Expected Requirement / Quantity</label><input id="d_qty" name="quantity" type="text" placeholder="e.g. 200+ covers / month"></div>
+        <div class="field w2">
+          <label>Interested Product Categories <b>*</b></label>
+          <div class="cats" role="group" aria-label="Interested categories" style="display:flex;flex-wrap:wrap;gap:8px">
+            <label class="chip" style="cursor:pointer"><input type="checkbox" name="cat" value="Manhole Covers" style="accent-color:#B98200;margin-right:6px">Manhole Covers</label>
+            <label class="chip" style="cursor:pointer"><input type="checkbox" name="cat" value="FRP / PVC Series" style="accent-color:#B98200;margin-right:6px">FRP / PVC Series</label>
+            <label class="chip" style="cursor:pointer"><input type="checkbox" name="cat" value="MS / GI Covers" style="accent-color:#B98200;margin-right:6px">MS / GI Covers</label>
+            <label class="chip" style="cursor:pointer"><input type="checkbox" name="cat" value="Checkered Sheets" style="accent-color:#B98200;margin-right:6px">Checkered Sheets</label>
+            <label class="chip" style="cursor:pointer"><input type="checkbox" name="cat" value="Sanitary" style="accent-color:#B98200;margin-right:6px">Sanitary</label>
+          </div>
+          <span class="err">Select at least one category.</span>
+        </div>
+        <div class="field w2"><label for="d_msg">Message</label><textarea id="d_msg" name="message" rows="3" placeholder="Tell us about your market, coverage area or requirements…"></textarea></div>
+      </div>
+      <label class="check-note"><input type="checkbox" id="d_consent" required> I agree to be contacted about my enquiry and accept that my details are used only for business correspondence.</label>
+      <span class="err" id="d_consentErr" style="color:#C2410C;font-size:11px;display:none;margin-left:27px">Please accept the consent note.</span>
+      <button class="btn btn--gold sheen form-submit" type="submit" data-magnet>Submit Dealer Enquiry <span class="arr">→</span></button>
+      <div class="form-done" id="dealerDone" tabindex="-1" aria-live="polite">
+        <h3>Enquiry prepared!</h3>
+        <p>Your details are ready to send. Choose an sending method below — no data is stored on this page, so pick whichever is fastest for you. <b>Note:</b> this site has no backend form handler; we route enquiries through your own email/WhatsApp so nothing gets lost.</p>
+        <div class="acts">
+          <a id="dealerMail" href="#">Open Email Draft</a>
+          <a id="dealerWa" href="#" target="_blank" rel="noopener">Send via WhatsApp</a>
+          <button type="button" id="dealerCopy">Copy Details</button>
+        </div>
+      </div>
+      <input class="honeypot" type="text" name="_trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </form>
+  </div>
+</section>
+
+<!-- connector 8 handled via dealer->contact pin -->
+
+<!-- ============================================================ S09 CONTACT -->
+<section class="sec contact on-dark" id="contact" aria-label="Contact us">
+  <div class="contact__emerge" id="cEmerge"><img data-k="p_jkextra" alt="" aria-hidden="true"></div>
+  <div class="inner wrap">
+    <div class="head">
+      <p class="kicker" data-reveal>Section 09 — Contact</p>
+      <h2 class="h-sec" data-reveal data-delay=".08">Let's build something<br><span class="gold-text">stronger together.</span></h2>
+      <p class="lead" data-reveal data-delay=".16" style="color:#AEBAC1">Have a project requirement, product enquiry or distribution opportunity? Get in touch with JK Industries.</p>
+    </div>
+    <div class="contact-cards">
+      <a class="ccard" href="mailto:jk@manholecover.in" data-reveal>
+        <span class="ci"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <b>Email</b><span>jk@manholecover.in<small>Click to open mail</small></span>
+      </a>
+      <a class="ccard" href="tel:+917600447776" data-reveal data-delay=".08">
+        <span class="ci"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <b>Phone</b><span>+91 76004 47776<small>Tap to call</small></span>
+      </a>
+      <a class="ccard" href="https://www.google.com/maps?q=92,+Shreenath+Industrial+Estate,+Nana+Chiloda,+Ranasan,+Ahmedabad,+Gujarat" target="_blank" rel="noopener" data-reveal data-delay=".16">
+        <span class="ci"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <b>Works / Office</b><span>92, Shreenath Industrial Estate, Nana Chiloda, Ranasan, Ahmedabad, Gujarat<small>Open in Google Maps</small></span>
+      </a>
+      <a class="ccard" href="https://wa.me/+917600447776" target="_blank" rel="noopener" data-reveal data-delay=".24">
+        <span class="ci"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+        <b>WhatsApp</b><span>+91 76004 47776<small>Quick enquiries</small></span>
+      </a>
+    </div>
+    <div class="cform">
+      <div class="contactinfo">
+        <div class="contact-row" data-reveal><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><div><b>Response Hours</b><span>Mon – Sat, business hours</span></div></div>
+        <div class="contact-row" data-reveal data-delay=".08"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><b>Reach us</b><span>Serving projects across India — HQ Ahmedabad, Gujarat</span></div></div>
+        <div class="contact-row" data-reveal data-delay=".16" style="border-bottom:0"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5z"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
+          <div><b>Follow</b><div class="socials">
+            <a href="https://www.facebook.com/pages/category/Commercial---Industrial-Equipment-Supplier/JK-Industries-101370945447530/" target="_blank" rel="noopener" aria-label="JK Industries on Facebook"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14 8.5V7c0-.6.4-1 1-1h1.5V3.5h-3c-1.9 0-3 1.4-3 3.2V8.5H8V12h2.5v9h3.5v-9h2.3l.7-3.5z"/></svg></a>
+            <a href="https://www.instagram.com/jkindustriesabd/" target="_blank" rel="noopener" aria-label="JK Industries on Instagram"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="https://wa.me/+917600447776" target="_blank" rel="noopener" aria-label="JK Industries on WhatsApp"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
+          </div></div>
+        </div>
+      </div>
+      <form id="contactForm" novalidate data-form="contact" aria-label="General enquiry">
+        <div class="form-grid" style="grid-template-columns:1fr 1fr">
+          <div class="field"><label for="c_name">Name <b>*</b></label><input id="c_name" name="name" type="text" autocomplete="name" required placeholder="Your name"><span class="err">Please enter your name.</span></div>
+          <div class="field"><label for="c_phone">Phone</label><input id="c_phone" name="phone" type="tel" inputmode="tel" placeholder="+91 00000 00000"></div>
+          <div class="field w2"><label for="c_email">Email <b>*</b></label><input id="c_email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@company.com"><span class="err">Enter a valid email address.</span></div>
+          <div class="field w2"><label for="c_msg">Message <b>*</b></label><textarea id="c_msg" name="message" rows="4" required placeholder="Project requirement, product enquiry or distribution opportunity…"></textarea><span class="err">Please write a short message.</span></div>
+        </div>
+        <button class="btn btn--gold sheen form-submit" type="submit" data-magnet>Send Message <span class="arr">→</span></button>
+        <div class="form-done" id="contactDone" tabindex="-1" aria-live="polite">
+          <h3>Message ready!</h3>
+          <p>Your enquiry has been prepared — it will open in your own email app so you can send it directly. WhatsApp works too, right from this panel.</p>
+          <div class="acts"><a id="contactMail" href="#">Open Email Draft</a><a id="contactWa" href="#" target="_blank" rel="noopener">WhatsApp</a><button type="button" id="contactCopy">Copy</button></div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="fbrand"><img data-k="badge" alt="JK Industries logo"><b>JK <span>Industries</span></b></div>
+          <p class="fabout">Precision-engineered manhole covers and sanitary solutions — designed for reliability, strength and everyday performance. Established 2016, Ahmedabad.</p>
+        </div>
+        <div>
+          <h3>Navigate</h3>
+          <ul>
+            <li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#products">Products</a></li>
+            <li><a href="#catalogue">Catalogue</a></li><li><a href="#manufacturing">Manufacturing</a></li>
+            <li><a href="#quality">Quality</a></li><li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Products</h3>
+          <ul>
+            <li><a href="#products">LDPE Frame &amp; Covers</a></li><li><a href="#products">FRP Frame &amp; Covers</a></li>
+            <li><a href="#products">PVC Frame &amp; Covers</a></li><li><a href="#products">MS / GI Frame &amp; Covers</a></li>
+            <li><a href="#products">Checkered Sheets &amp; Coils</a></li><li><a href="#products">Flush Tanks · PTMT Taps</a></li>
+          </ul>
+        </div>
+        <div class="fc">
+          <h3>Contact</h3>
+          <a href="mailto:jk@manholecover.in">jk@manholecover.in</a>
+          <a href="tel:+917600447776">+91 76004 47776</a>
+          <div>92, Shreenath Industrial Estate, Nana Chiloda, Ranasan, Ahmedabad, Gujarat</div>
+          <div style="margin-top:10px;display:flex;gap:12px">
+            <a href="https://www.facebook.com/pages/category/Commercial---Industrial-Equipment-Supplier/JK-Industries-101370945447530/" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>·
+            <a href="https://www.instagram.com/jkindustriesabd/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>·
+            <a href="https://wa.me/+917600447776" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="yr">2026</span> JK Industries · All rights reserved</span>
+        <span>Brand content sourced from <b>manholecover.in</b></span>
+      </div>
+    </div>
+  </footer>
+</section>
+</main>
+
+<!-- ============================================================ QUOTE MODAL -->
+<div class="modal" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="qmTitle" hidden>
+  <div class="modal__bg" data-modal-cancel></div>
+  <div class="modal__box">
+    <button class="modal__close" data-modal-cancel aria-label="Close"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <h3 id="qmTitle">Request a quote</h3>
+    <p class="sub">Tell us what you need — we reply with specifications and pricing.</p>
+    <form id="quoteForm" novalidate data-form="quote">
+      <div class="form-grid">
+        <div class="field"><label for="q_name">Name <b>*</b></label><input id="q_name" name="name" type="text" required autocomplete="name" placeholder="Your name"><span class="err">Please enter your name.</span></div>
+        <div class="field"><label for="q_phone">Phone <b>*</b></label><input id="q_phone" name="phone" type="tel" inputmode="tel" required placeholder="+91 00000 00000"><span class="err">Enter a valid phone number.</span></div>
+        <div class="field"><label for="q_email">Email <b>*</b></label><input id="q_email" name="email" type="email" inputmode="email" required autocomplete="email" placeholder="you@company.com"><span class="err">Enter a valid email address.</span></div>
+        <div class="field">
+          <label for="q_prod">Product Category <b>*</b></label>
+          <select id="q_prod" name="product" required>
+            <option value="" selected>Select a category…</option>
+          </select>
+          <svg class="sel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          <span class="err">Please select a category.</span>
+        </div>
+        <div class="field"><label for="q_qty">Quantity</label><input id="q_qty" name="quantity" type="text" placeholder="e.g. 25 pcs"></div>
+        <div class="field w2"><label for="q_msg">Message</label><textarea id="q_msg" name="message" rows="3" placeholder="Requirements, site details, timelines…"></textarea></div>
+      </div>
+      <button class="btn btn--gold sheen form-submit" type="submit" style="margin-top:6px">Send Request <span class="arr">→</span></button>
+      <div class="form-done" id="quoteDone" tabindex="-1" aria-live="polite">
+        <h3>Request prepared!</h3>
+        <p>Open the draft in your email app or send instantly via WhatsApp.</p>
+        <div class="acts"><a id="quoteMail" href="#">Open Email Draft</a><a id="quoteWa" href="#" target="_blank" rel="noopener">WhatsApp</a><button type="button" id="quoteCopy">Copy</button></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================ PRODUCT MODAL -->
+<div class="modal prod-modal" id="prodModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" hidden>
+  <div class="modal__bg" data-modal-cancel></div>
+  <div class="modal__box">
+    <button class="modal__close" data-modal-cancel aria-label="Close"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="pm-pic"><img id="pmImg" src="{{ASSET:p_pvc}}" alt=""></div>
+    <div class="pm-info">
+      <p class="kicker" id="pmTag" style="margin-bottom:10px">Series</p>
+      <h3 id="pmTitle">Product</h3>
+      <p class="m" id="pmDesc"></p>
+      <div class="pm-specs" id="pmSpecs"></div>
+      <div class="pm-acts">
+        <button class="btn btn--gold sheen" id="pmQuote" data-magnet>Request Quote <span class="arr">→</span></button>
+        <a class="btn btn--ghost sheen" href="https://wa.me/+917600447776" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>

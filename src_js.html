@@ -1,0 +1,1152 @@
+<script>
+/* ============================================================
+   JK INDUSTRIES — experience engine (single file)
+   Boots on DOMContentLoaded so the deferred CDN libs (GSAP/THREE)
+   are ready first; falls back to a lightweight mode if they fail.
+   ============================================================ */
+(function(){
+"use strict";
+function BOOT(){
+const IMG = {{IMG_JSON}};
+
+/* ---------- inject background images + favicon ---------- */
+(function(){
+  const set = (k,v) => { if(v) document.documentElement.style.setProperty(k, v); };
+  set('--img-extra', IMG.p_jkextra  ? `url(${IMG.p_jkextra})`: '');
+  const cy = document.getElementById('catYear'); if(cy) cy.textContent = String(new Date().getFullYear());
+  try{
+    const f = document.createElement('link'); f.rel='icon'; f.type='image/png'; f.href = IMG.badge; document.head.appendChild(f);
+  }catch(e){}
+})();
+
+/* ---------- data (verified from manholecover.in) ---------- */
+const PRODUCTS = [
+  {tag:"01 · LDPE", name:"LDPE Manhole Frame & Covers", mat:"Low Density Polyethylene",
+   img:"p_ldpe", desc:"Strong & unbreakable LDPE covers with a full replacement guarantee — available in 4 different colours.",
+   specs:[["Load capacity","6 – 7 ton"],["Colours","4 options"],["Warranty","Full replacement"],["Structure","Strong & unbreakable"]]},
+  {tag:"02 · FRP", name:"FRP Manhole Frame & Covers", mat:"Fibre Reinforced Plastic — JK Gold series",
+   img:"p_frp", desc:"JK Gold series FRP covers — standard granite finish, high impact resistance and no scrap value, so there's nothing worth stealing.",
+   specs:[["Load capacity","2.5 – 40 T"],["Finish","Granite / client colour"],["Anti-theft","No scrap value"],["Corrosion","Sea & sewage safe"]]},
+  {tag:"03 · PVC", name:"PVC Manhole Frame & Covers", mat:"Polyvinyl Chloride — 100% virgin plastic",
+   img:"p_pvc", desc:"Made from 100% virgin plastic with a high strength-to-weight ratio and excellent abrasion resistance.",
+   specs:[["Material","100% virgin PVC"],["Service life","20 – 30 years"],["Weight","Light, easy handling"],["Rain / vehicles","No erosion"]]},
+  {tag:"04 · MS/GI", name:"MS / GI Manhole Frame & Covers", mat:"Mild Steel · Galvanised Iron",
+   img:"p_msgi", desc:"Chequered plate covers with rust-proof and scratch-proof coating — anti-theft by design.",
+   specs:[["Plate thickness","2.6 mm & 6 mm"],["Load capacity","3 – 4 ton"],["Coating","GI 25µ + Powder 85µ"],["Colours","Multi-colour"]]},
+  {tag:"05 · JK Hi-Tech", name:"JK Hi-Tech PVC Frame & Covers", mat:"High-Tech PVC · German technology",
+   img:"p_jkhigh", desc:"Lock-and-key system with hinges, chemical & slip resistant, waterproof and non-corrosive.",
+   specs:[["Locking","Lock & key + hinges"],["Resistance","Chemical & slip"],["Build","German technology"],["Surface","Waterproof / weatherproof"]]},
+  {tag:"06 · Extra Heavy", name:"JK Extra Heavy High-Tech PVC", mat:"High-Tech Polyethelene · made in India",
+   img:"p_jkextra", desc:"Heavy duty, long-lasting cover engineered in German technology with 2-key locking and child safety.",
+   specs:[["Load capacity","Up to 12 ton"],["Locking","2-key system"],["Safety","Child-safe"],["Durability","Heavy duty, weatherproof"]]},
+  {tag:"07 · HDPE", name:"HDPE Manhole Frame & Covers", mat:"High Density Polyethylene",
+   img:"p_hdpe", desc:"Dependable HDPE covers backed by a lifetime warranty and full replacement guarantee.",
+   specs:[["Load capacity","3 – 4 ton"],["Warranty","Lifetime"],["Guarantee","Full replacement"]]},
+  {tag:"08 · Steel", name:"Checkered Sheets & Coils", mat:"Tread-plate steel",
+   img:null, desc:"Checkered tread-plate sheets and coils. Dimensions, thicknesses and finish details are shared on request.",
+   specs:[["Dimensions","Available on request"],["Thickness","Available on request"],["Supply","Sheet / coil"]]},
+  {tag:"09 · Sanitary", name:"Flush Tanks", mat:"Sanitaryware",
+   img:"p_flush", desc:"Dependable flushing cisterns for everyday sanitary requirements — project and counter supply.",
+   specs:[["Specifications","Available on request"],["Finish","White"],["Supply","Project / retail"]]},
+  {tag:"10 · PTMT", name:"PTMT Taps (White)", mat:"Poly Tetra Methylene Terephthalate",
+   img:"p_ptmt", desc:"Lightweight thermoplastic taps engineered for corrosion-free everyday service.",
+   specs:[["Finish","White"],["Specifications","Available on request"]]}
+];
+const CLIENT_LOGOS = ["c_gcs","c_adani","c_realty","c_shahlon","c_constructions"];
+const EMAIL = "jk@manholecover.in";
+const PHONE_WA = "917600447776";
+const CHECKER_SVG = `<svg viewBox="0 0 200 200" aria-label="Checkered steel sheet and coil — technical render">
+  <defs>
+    <linearGradient id="ckG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4A565E"/><stop offset=".5" stop-color="#2A333B"/><stop offset="1" stop-color="#161C22"/></linearGradient>
+    <linearGradient id="ckS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3A444D"/><stop offset=".5" stop-color="#5A6771"/><stop offset="1" stop-color="#232B32"/></linearGradient>
+    <pattern id="ckP" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="26" height="26" fill="url(#ckG)"/>
+      <path d="M13 4 l4.5 9 -4.5 9 -4.5-9 z" fill="#5E6B75" opacity=".55"/>
+      <path d="M13 6.5 l2.8 6.5 -2.8 6.5 -2.8-6.5 z" fill="#77838B" opacity=".5"/>
+    </pattern>
+    <pattern id="ckP2" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="26" height="26" fill="#3A444D"/>
+      <path d="M13 4 l4.5 9 -4.5 9 -4.5-9 z" fill="#B9C3CA" opacity=".55"/>
+    </pattern>
+  </defs>
+  <g transform="rotate(-18 100 100)">
+    <rect x="18" y="34" width="128" height="128" rx="4" fill="url(#ckP)" stroke="#5E6B75" stroke-opacity=".4"/>
+    <ellipse cx="132" cy="66" rx="46" ry="16" fill="url(#ckS)"/>
+    <ellipse cx="132" cy="58" rx="46" ry="16" fill="url(#ckS)" opacity=".92"/>
+    <ellipse cx="132" cy="50" rx="46" ry="16" fill="#4A565E"/>
+    <ellipse cx="132" cy="50" rx="18" ry="6" fill="#141A20"/>
+  </g>
+  <path d="M20 40 l0 -12 12 0" stroke="#FFB600" stroke-width="1.6" fill="none"/>
+  <path d="M180 160 l0 12 -12 0" stroke="#FFB600" stroke-width="1.6" fill="none"/>
+  <text x="26" y="30" font-family="IBM Plex Mono,monospace" font-size="7" letter-spacing="2" fill="#8FA5B1">SHEET 6 MM</text>
+  <text x="120" y="184" font-family="IBM Plex Mono,monospace" font-size="7" letter-spacing="2" fill="#8FA5B1">COIL OD — ON REQUEST</text>
+</svg>`;
+
+/* ---------- env flags ---------- */
+const RM    = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE  = window.matchMedia('(pointer: fine)').matches;
+const DESK  = window.matchMedia('(min-width: 861px)').matches;
+const MOBILE = !DESK;                                       // phone/tablet flow
+const GSAP_OK = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+const THREE_OK = typeof window.THREE !== 'undefined';
+const LITE  = RM || !GSAP_OK;                               // fully static (reduced motion / libs failed)
+if(LITE) document.body.classList.add('no-anim');
+if(GSAP_OK) gsap.registerPlugin(ScrollTrigger);
+
+/* helpers */
+const $  = (s, r) => (r||document).querySelector(s);
+const $$ = (s, r) => [...(r||document).querySelectorAll(s)];
+const on = (el, ev, fn, o) => el && el.addEventListener(ev, fn, o||false);
+const lerp = (a,b,t) => a + (b-a)*t;
+const clampN = (v,a,b) => Math.min(b, Math.max(a,v));
+const canAnim = () => !!window.gsap && !RM;
+
+/* ============================================================
+   0. static data fill
+   ============================================================ */
+(function(){
+  $$('[data-k]').forEach(el=>{ const k = el.dataset.k; if(IMG[k]) el.src = IMG[k]; });
+  const yr = $('#yr'); if(yr) yr.textContent = String(new Date().getFullYear());
+  const qp = $('#q_prod');
+  if(qp) PRODUCTS.forEach(p=>{ const o=document.createElement('option'); o.value=o.textContent=p.name; qp.appendChild(o); });
+  const mq = document.getElementById('mq1');
+  if(mq){
+    const tiles = $$('.ltile', mq);
+    // assign sources, then duplicate row for the seamless -50% loop
+    tiles.forEach((t,i)=>{ const img=$('img',t); const k=CLIENT_LOGOS[i % CLIENT_LOGOS.length]; if(img && IMG[k]) img.src = IMG[k]; });
+    tiles.forEach(t=>mq.appendChild(t.cloneNode(true)));
+  }
+})();
+
+/* ============================================================
+   1. LOADER
+   ============================================================ */
+let introStart = () => {};
+(function(){
+  const loader = $('#loader'), bar = $('#loadBar'), pct = $('#loadPct');
+  if(!loader) return;
+  document.body.classList.add('lock');
+  let p = 0, loaded = false;
+  const finish = () => { loader.classList.add('done'); document.body.classList.remove('lock'); introStart(); };
+  // interval-based so hidden/background tabs cannot stall the loader (rAF pauses off-screen)
+  const tick = () => { p = Math.min(p + (loaded? 9 : (1.2 + Math.random()*2.6)), loaded? 100 : 92);
+    if(bar) bar.style.width = p + '%'; if(pct) pct.textContent = Math.round(p);
+    if(p >= 100){ clearInterval(iv); setTimeout(finish, 200); } };
+  const iv = setInterval(tick, 46);
+  tick();
+  const mark = () => { loaded = true; };
+  window.addEventListener('load', ()=>setTimeout(mark, 200));
+  setTimeout(mark, 3800);
+  if(canAnim()){
+    gsap.set('#nav .wrap > *',{y:-16,opacity:0});
+    gsap.set('#heroStage',{opacity:0, y:40});
+  }
+})();
+introStart = function(){
+  if(!canAnim()) return;
+  gsap.timeline({defaults:{ease:'power4.out'}})
+    .to('.hero__copy .split-line .word',{y:'0%',rotate:0,opacity:1,duration:1.05,stagger:.05},0)
+    .to('#heroStage',{opacity:1,y:0,duration:1.1},0.1)
+    .to('.hero__copy [data-reveal], .hero__ctas, .hero__trust',{opacity:1,y:0,duration:.9,stagger:.11},0.45)
+    .to('#nav .wrap > *',{y:0,opacity:1,duration:.7,stagger:.06},0.2);
+};
+
+/* ============================================================
+   2. MAGNETIC BUTTONS (custom cursor removed — default cursor used)
+   ============================================================ */
+(function(){
+  if(RM) return;
+  $$('[data-magnet]').forEach(el=>{
+    el.addEventListener('mousemove',e=>{ const r=el.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.28, y=(e.clientY-r.top-r.height/2)*.28;
+      el.style.transform=`translate(${x}px,${y}px)`; });
+    const reset = ()=>{ el.style.transform=''; };
+    el.addEventListener('mouseleave',reset);
+    el.addEventListener('click',reset);
+    el.addEventListener('blur',reset);
+  });
+})();
+
+/* ============================================================
+   3. NAV / MENU / ACTIVE LINK / PROGRESS / TOTOP
+   ============================================================ */
+(function(){
+  const nav = $('#nav'), burger = $('#burger'), menu = $('#mmenu');
+  on(window,'scroll',()=>{
+    nav && nav.classList.toggle('scrolled', window.scrollY > 40);
+    const t = $('#toTop'); if(t) t.classList.toggle('show', window.scrollY > 700);
+  },{passive:true});
+  on($('#toTop'),'click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  const setOpen = (o) => {
+    menu.classList.toggle('open',o); burger.classList.toggle('open',o);
+    burger.setAttribute('aria-expanded',String(o));
+    burger.setAttribute('aria-label', o?'Close menu':'Open menu');
+    document.body.classList.toggle('lock',o);
+    $$('#mmenu .mmenu-link').forEach((l,i)=>l.style.transitionDelay = o? (0.06+i*0.04)+'s' : '0s');
+  };
+  on(burger,'click',()=>setOpen(!menu.classList.contains('open')));
+  on(document,'keydown',e=>{ if(e.key==='Escape'){ if(menu.classList.contains('open')) setOpen(false); }});
+  // active section
+  const links = $$('.nav__links a');
+  if(links.length && 'IntersectionObserver' in window){
+    const secs = links.map(a=>document.getElementById((a.getAttribute('href')||'').slice(1))).filter(Boolean);
+    const io = new IntersectionObserver(es=>{
+      es.forEach(e=>{ if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active', l.getAttribute('href') === '#'+e.target.id)); });
+    },{rootMargin:'-38% 0px -55% 0px'});
+    secs.forEach(s=>io.observe(s));
+  }
+  // progress
+  const bar = $('#progress i');
+  if(bar){
+    if(GSAP_OK && !RM){ ScrollTrigger.create({ start:0, end:'max', onUpdate:s=>bar.style.transform=`scaleX(${s.progress})` }); }
+    else on(window,'scroll',()=>{ const h=document.body.scrollHeight - innerHeight; bar.style.transform=`scaleX(${h>0? window.scrollY/h : 0})`; },{passive:true});
+  }
+})();
+
+/* ============================================================
+   4. SPLITS + REVEALS + COUNTERS
+   ============================================================ */
+(function(){
+  $$('[data-split]').forEach(el=>{
+    const words = (el.dataset.label || el.textContent||'').trim().split(/\s+/);
+    el.setAttribute('aria-label', words.join(' '));
+    el.innerHTML = words.map(w=>`<span class="word">${w}</span>`).join(' ');
+    if(!canAnim()) $$('.word',el).forEach(w=>{ w.style.opacity=1; w.style.transform='none'; });
+  });
+  if(canAnim()){
+    $$('[data-reveal]').forEach(el=>{
+      if(el.closest('.hero')) return; // handled by intro timeline
+      if(el.closest('#mmenu')) return;
+      ScrollTrigger.create({ trigger: el, start:'top 88%', once:true,
+        onEnter:()=>gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',delay:parseFloat(el.dataset.delay||0)}) });
+    });
+  } else {
+    $$('[data-reveal]').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
+  }
+  // counters — immediate pass for in-view items (safe in frozen-ticker tabs), IO for the rest
+  const runCount = (el)=>{
+    if(el.dataset.jkC === '1') return;
+    el.dataset.jkC = '1';
+    const target = parseFloat(el.dataset.count||'0');
+    const from = parseFloat(el.dataset.from||'0');
+    const suf = el.dataset.suffix||'';
+    const dur = RM? 1 : 1700;
+    const t0 = performance.now();
+    const step = ()=>{ const k = clampN((performance.now()-t0)/dur,0,1); const e = 1-Math.pow(1-k,3);
+      const v = Math.round(from + (target-from)*e);
+      el.innerHTML = suf? (v + `<i class="sfx">${suf}</i>`) : String(v);
+      if(k<1) setTimeout(step, RM? 40 : 18); };
+    step();
+  };
+  const counters = $$('[data-count]');
+  if (counters.length){
+    const vh0 = innerHeight;
+    counters.forEach(el=>{ const r0 = el.getBoundingClientRect(); if (r0.top < vh0 && r0.bottom > 0) runCount(el); });
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver(es=>es.forEach(e0=>{ if(e0.isIntersecting){ runCount(e0.target); io.unobserve(e0.target); }}),{threshold:.4});
+      counters.forEach(el=>{ if(el.dataset.jkC !== '1') io.observe(el); });
+    }
+  }
+})();
+
+/* ============================================================
+   5. HERO 3D
+   ============================================================ */
+(function(){
+  const stage = $('#heroStage'), canvas = $('#heroCanvas'), fb = $('#heroFallback');
+  if(!stage || !canvas) return;
+  if(!THREE_OK || !DESK || RM || LITE){
+    canvas.style.display='none';
+    if(fb) fb.style.display='flex';
+    stage.classList.add('showfb');
+    return;
+  }
+  let group, sheen;
+  try{ init3D(); }catch(e){ canvas.style.display='none'; if(fb) fb.style.display='flex'; }
+
+  function makeBumpTex(){
+    const c = document.createElement('canvas'); c.width=c.height=512;
+    const x = c.getContext('2d');
+    x.fillStyle='#80878c'; x.fillRect(0,0,512,512);
+    const diamond = (cx,cy,s)=>{ x.beginPath(); x.moveTo(cx,cy-s); x.lineTo(cx+s,cy); x.lineTo(cx,cy+s); x.lineTo(cx-s,cy); x.closePath();
+      const g=x.createLinearGradient(cx-s,cy-s,cx+s,cy+s); g.addColorStop(0,'#d9dcdf'); g.addColorStop(1,'#54595e'); x.fillStyle=g; x.fill(); };
+    for(let iy=0;iy<7;iy++) for(let ix=0;ix<7;ix++){ diamond(28+ix*76, 30+iy*76, 20); }
+    return new THREE.CanvasTexture(c);
+  }
+  function makeEnvTex(){
+    // bright studio environment (equirect): softboxes + horizon strips for lively metal reflections
+    const c = document.createElement('canvas'); c.width=1024; c.height=512;
+    const x = c.getContext('2d');
+    const base = x.createLinearGradient(0,0,0,512);
+    base.addColorStop(0,'#f8fafc');
+    base.addColorStop(.3,'#e2e9ee');
+    base.addColorStop(.5,'#9aa7b0');
+    base.addColorStop(.64,'#2a333b');
+    base.addColorStop(1,'#0d1115');
+    x.fillStyle = base; x.fillRect(0,0,1024,512);
+    // two large softboxes
+    const softbox = (cx,cy,rw,rh,a)=>{ const g = x.createRadialGradient(cx,cy,rh*2,cx,cy,rw);
+      g.addColorStop(0,'rgba(255,255,255,'+a+')'); g.addColorStop(1,'rgba(255,255,255,0)');
+      x.save(); x.translate(cx,cy); x.scale(rw/rh,1); x.translate(-cx,-cy);
+      x.fillStyle=g; x.fillRect(cx-rw,cy-rh,rw*2,rh*2); x.restore(); };
+    softbox(240,120,260,110,.98);
+    softbox(780,140,210,90,.85);
+    softbox(520,330,300,120,.35);
+    // gold accent band low near horizon
+    const golds = x.createLinearGradient(0,286,0,330);
+    golds.addColorStop(0,'rgba(255,182,0,0)'); golds.addColorStop(.5,'rgba(255,182,0,.28)'); golds.addColorStop(1,'rgba(255,182,0,0)');
+    x.fillStyle = golds; x.fillRect(0,286,1024,44);
+    // thin repeated strip lights around the horizon for grazing reflections
+    x.globalAlpha = .16;
+    for(let i=0;i<24;i++) x.fillRect(i*44+12, 240, 10, 44);
+    x.globalAlpha = 1;
+    const t = new THREE.CanvasTexture(c);
+    t.mapping = THREE.EquirectangularReflectionMapping;
+    if(THREE.sRGBEncoding !== undefined) t.encoding = THREE.sRGBEncoding;
+    return t;
+  }
+  function makeTreadTex(){
+    // denser diamond tread for the center plate bump
+    const c = document.createElement('canvas'); c.width=c.height=256;
+    const x = c.getContext('2d');
+    x.fillStyle='#8a9095'; x.fillRect(0,0,256,256);
+    const dia = (cx,cy,s)=>{ x.beginPath(); x.moveTo(cx,cy-s); x.lineTo(cx+s,cy); x.lineTo(cx,cy+s); x.lineTo(cx-s,cy); x.closePath();
+      const g=x.createLinearGradient(cx-s,cy-s,cx+s,cy+s);
+      g.addColorStop(0,'#f2f5f7'); g.addColorStop(.55,'#b8bfc5'); g.addColorStop(1,'#3f454b');
+      x.fillStyle=g; x.fill(); };
+    for(let iy=0;iy<9;iy++) for(let ix=0;ix<9;ix++){
+      const ox = (iy%2) ? 15 : 0;
+      dia(14+ix*28+ox, 14+iy*28, 10);
+    }
+    return new THREE.CanvasTexture(c);
+  }
+  function makeShadowTex(){
+    const c = document.createElement('canvas'); c.width=c.height=256;
+    const x = c.getContext('2d');
+    const rg = x.createRadialGradient(128,128,18,128,128,120);
+    rg.addColorStop(0,'rgba(0,0,0,.55)'); rg.addColorStop(.55,'rgba(0,0,0,.22)'); rg.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle = rg; x.fillRect(0,0,256,256);
+    return new THREE.CanvasTexture(c);
+  }
+  function init3D(){
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(30, 1, .1, 60);
+    cam.position.set(1.15, 1.95, 8.6); cam.lookAt(0, -.12, 0);
+    const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true, preserveDrawingBuffer:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+    if(THREE.sRGBEncoding !== undefined) renderer.outputEncoding = THREE.sRGBEncoding;
+    if(THREE.ACESFilmicToneMapping !== undefined){
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.12;
+    }
+    // studio environment for metallic reflections
+    try{
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      const envRT = pmrem.fromEquirectangular(makeEnvTex());
+      scene.environment = envRT.texture;
+      pmrem.dispose();
+    }catch(err){ /* env is an enhancement only */ }
+    scene.add(new THREE.HemisphereLight(0xf4f8fa, 0x1a222b, .85));
+    const key = new THREE.DirectionalLight(0xfff2df, 1.9); key.position.set(5,7,4); scene.add(key);
+    const fill = new THREE.DirectionalLight(0xcfe0ff, .8); fill.position.set(-5,2.5,3.5); scene.add(fill);
+    const gold = new THREE.PointLight(0xFFB600, 2.4, 40); gold.position.set(-4.5,1.4,-4); scene.add(gold);
+    sheen = new THREE.DirectionalLight(0xffe1a8, 1.15); sheen.position.set(-5,3,-4); scene.add(sheen);
+
+    const g = new THREE.Group();
+    const bump  = makeBumpTex();
+    const tread = makeTreadTex();
+    const matBody  = new THREE.MeshStandardMaterial({color:0x3E4954, metalness:.88, roughness:.34, bumpMap:bump, bumpScale:.026, envMapIntensity:1.15});
+    const matEdge  = new THREE.MeshStandardMaterial({color:0x262F38, metalness:.9,  roughness:.42, envMapIntensity:1.0});
+    const matPlate = new THREE.MeshStandardMaterial({color:0x49565f, metalness:.82, roughness:.34, bumpMap:tread, bumpScale:.085, envMapIntensity:1.35});
+    const matStud  = new THREE.MeshStandardMaterial({color:0x46525C, metalness:.85, roughness:.34, envMapIntensity:1.25});
+    const matDark  = new THREE.MeshStandardMaterial({color:0x12181E, metalness:.6,  roughness:.5});
+    const matGold  = new THREE.MeshStandardMaterial({color:0xFFB600, metalness:.95, roughness:.24, emissive:0x2a1d00, emissiveIntensity:.6, envMapIntensity:1.4});
+    // ---- frame / carrier (the housing the cover drops into)
+    const squab = new THREE.Mesh(new THREE.BoxGeometry(2.68,.3,2.68), matEdge); squab.position.y=-.22; g.add(squab);
+    [[2.9,.34,.24,0,-1.34],[2.9,.34,.24,0,1.34],[.24,.34,2.86,-1.35,0],[.24,.34,2.86,1.35,0]].forEach(a=>{
+      const m = new THREE.Mesh(new THREE.BoxGeometry(a[0],a[1],a[2]), matEdge); m.position.set(a[3],-.17,a[4]); g.add(m); });
+    // ---- lid slab + inner lip
+    const top = new THREE.Mesh(new THREE.BoxGeometry(2.5,.15,2.5), matBody); top.position.y=.02; g.add(top);
+    const lip = new THREE.Mesh(new THREE.BoxGeometry(2.32,.055,2.32), matEdge); lip.position.y=.085; g.add(lip);
+    // ---- raised centre tread plate
+    const pat = new THREE.Mesh(new THREE.BoxGeometry(2.02,.05,2.02), matPlate); pat.position.y=.1; g.add(pat);    // ---- star-tile emboss (rotated alternately like the JK PVC mouldings)
+    const studG = new THREE.BoxGeometry(.35,.05,.35);
+    for(let i=0;i<5;i++) for(let j=0;j<5;j++){
+      if(Math.abs(i-2)<=1 && Math.abs(j-2)<=1) continue; // keep a 3x3 plaque for the emblem
+      const s = new THREE.Mesh(studG, matStud);
+      s.position.set(-.788+i*.394,.128,-.788+j*.394);
+      s.rotation.y = ((i+j)%2) ? Math.PI/4 : 0;
+      g.add(s);
+    }
+    // ---- centre emblem: plaque + disc + gold ring + small wing bars
+    const plaque = new THREE.Mesh(new THREE.BoxGeometry(1,.028,1), matEdge); plaque.position.y=.108; g.add(plaque);
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(.3,.3,.06,40), matDark);
+    disc.position.y=.128; g.add(disc);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(.24,.014,10,60), matGold); ring.rotation.x=Math.PI/2; ring.position.y=.128;
+    ring.material = matGold; g.add(ring);
+    const hub = new THREE.Mesh(new THREE.CylinderGeometry(.11,.11,.02,40), matGold); hub.position.y=.155; g.add(hub);
+    const wingG = new THREE.BoxGeometry(.22,.03,.05);
+    [[-1],[1]].forEach(w=>{ const b = new THREE.Mesh(wingG, matGold);
+      b.position.set(.42*w[0],.13,0);
+      b.rotation.y = Math.PI/2*(w[0]<0?1:-1)*.6; g.add(b); });
+    // ---- lift slots + safety latch
+    [[-.68,1.05],[.68,1.05],[.68,-1.05],[-.68,-1.05]].forEach(p=>{
+      const slot = new THREE.Mesh(new THREE.BoxGeometry(.42,.028,.09), matDark);
+      slot.position.set(p[0],.096,p[1]); g.add(slot); });
+    const tab = new THREE.Mesh(new THREE.BoxGeometry(.1,.06,.16), matGold); tab.position.set(1.2,.02,.42); g.add(tab);
+    // ---- hinge knuckles on the front edge
+    [[-.95,-.06],[.95,-.06]].forEach(p=>{
+      const h = new THREE.Mesh(new THREE.BoxGeometry(.3,.09,.16), matEdge); h.position.set(p[0],-.02,p[1]); g.add(h); });
+    // ---- gold corner bolts (hex countersunk)
+    const boltG = new THREE.CylinderGeometry(.07,.075,.05,6);
+    [[-1.22,-1.22],[1.22,-1.22],[-1.22,1.22],[1.22,1.22]].forEach(p=>{
+      const b = new THREE.Mesh(boltG, matGold);
+      b.position.set(p[0],0,p[1]); b.rotation.x = Math.PI/2;
+      b.position.y = -0.0; g.add(b); });
+    // ---- soft contact shadow (radial sprite under the model)
+    const shadow = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.4,5.4),
+      new THREE.MeshBasicMaterial({map:makeShadowTex(), transparent:true, opacity:.55, depthWrite:false})
+    );
+    shadow.rotation.x = -Math.PI/2; shadow.position.y = -.46; group = g;
+    g.add(shadow);
+    g.position.y = -.32; g.rotation.set(.12,.42,0);
+    scene.add(g);
+
+    const fit = () => { const w = stage.clientWidth, h = stage.clientHeight;
+      renderer.setSize(w,h,false); cam.aspect = w/h; cam.updateProjectionMatrix(); };
+    fit(); on(window,'resize',fit);
+
+    // mouse tilt
+    let tx=0, ty=0, rxm=0, rym=0;
+    if(FINE){ on(stage,'mousemove',e=>{ const r=stage.getBoundingClientRect();
+      tx=(e.clientX-r.left)/r.width-.5; ty=(e.clientY-r.top)/r.height-.5; },{passive:true});
+      on(stage,'mouseleave',()=>{ tx=0; ty=0; }); }
+    let t0 = performance.now();
+    (function loop(t){
+      const s = (t - t0)*.001;
+      rym = lerp(rym, tx, .06); rxm = lerp(rxm, ty, .06);
+      g.rotation.y = .4 + rym*.6;
+      g.rotation.x = .12 + rxm*.28 + Math.sin(s*.75)*.01;
+      g.position.y = -.32 + Math.sin(s*1.05)*.045;
+      sheen.position.x = Math.sin(s*.5)*6.5;
+      sheen.position.z = -4 + Math.cos(s*.5)*4.5;
+      renderer.render(scene, cam);
+      requestAnimationFrame(loop);
+    })(t0);
+    // entry
+    const intro = () => { if(!canAnim()) return;
+      g.scale.set(.5,.5,.5); g.rotation.y = 1.6;
+      gsap.to(g.scale,{x:1,y:1,z:1,duration:1.7,ease:'power3.out',delay:.4});
+      gsap.to(g.rotation,{y:.4,duration:2.0,ease:'power3.out',delay:.4});
+    };
+    if(document.readyState==='complete') setTimeout(intro, 900); else on(window,'load',()=>setTimeout(intro, 900));
+    window.__jk = { scene, camera: cam, renderer, group: g };
+    renderer.render(scene, cam);
+  }
+})();
+
+/* ============================================================
+   6. HERO PIN → blueprint morph (desktop only) + mobile center scroll
+   ============================================================ */
+(function(){
+  if(!canAnim() || MOBILE) return;
+  const hero = $('.hero'); if(!hero) return;
+  const stage = $('#heroStage');
+  gsap.timeline({ scrollTrigger:{ trigger:hero, start:'top top', end:'+=64%', scrub:.6, pin:true, anticipatePin:1 }})
+    .to('.hero__copy',{opacity:0, y:-70, duration:.35}, .08)
+    .to('.hero__scroll',{opacity:0, duration:.2}, .05)
+    .to(stage,{scale:1.26, y:'5vh', x:'-9vw', duration:.7, ease:'power2.inOut'},0)
+    .to('#heroBp',{opacity:1, duration:.5}, .25)
+    .fromTo('#heroBp .bp-anim',{scale:.93, opacity:0},{scale:1, opacity:1, duration:.4, ease:'power2.out', transformOrigin:'50% 50%'}, .25)
+    .to('.hero .grid-bg',{opacity:.95, duration:.5}, .3)
+    .to('.hero__ghost',{opacity:0, duration:.3}, .3)
+    .to('.hero__aura',{opacity:0, duration:.4}, .3)
+    .to({},{duration:.3});
+  // connector labels are triggered by their own bands
+})();
+
+/* mobile hero — centered lightweight scroll (no pin, no 3D) */
+(function(){
+  if(!canAnim() || !MOBILE) return;
+  const hero = $('.hero'); if(!hero) return;
+  gsap.timeline({scrollTrigger:{trigger:hero, start:'top top', end:'+=55%', scrub:.55}})
+    .to('.hero__copy',{opacity:.18, y:-40, ease:'none'},0)
+    .to('.hero__copy .lead',{opacity:.3, ease:'none'},0)
+    .to('#heroStage',{y:'-2vh', scale:.88, ease:'none'},0)
+    .to('.hero__fallback',{yPercent:-12, scale:1.06, ease:'none'},0)
+    .to('.hero .grid-bg',{opacity:.45, ease:'none'},0)
+    .to('.hero__aura',{yPercent:24, opacity:.3, ease:'none'},0)
+    .to('.hero__trust',{opacity:0, y:34, ease:'none'}, .35)
+    .to('.hero__scroll',{opacity:0, ease:'none'}, .1);
+  // center the glow on the fallback cover
+  gsap.set('.hero__stage .glow',{xPercent:-2, yPercent:2});
+})();
+
+/* data-par gentle scroll parallax (hero aura/grid/ghost + light sections) */
+(function(){
+  if(!canAnim()) return;
+  $$('[data-par]').forEach(el=>{
+    const f = parseFloat(el.dataset.par||'0'); if(!f) return;
+    const host = el.closest('section') || el;
+    gsap.fromTo(el,{yPercent: f*46},{yPercent: -f*46, ease:'none',
+      scrollTrigger:{trigger:host, start:'top bottom', end:'bottom top', scrub:1}});
+  });
+})();
+
+/* generic connector label + fill utility */
+(function(){
+  if(!canAnim()) return;
+  const cfg = [
+    {fill:'cn1label', el:'cn1'},
+    {fill:'cn3label', el:'cn3'},
+    {fill:'cn5fill', el:'cn5', mode:'fill'}, {fill:'cn5label', el:'cn5'},
+    {fill:'cn6fill', el:'cn6', mode:'fill'}, {fill:'cn6label', el:'cn6'},
+    {fill:'cn7fill', el:'cn7', mode:'fill'}, {fill:'cn7label', el:'cn7'}
+  ];
+  cfg.forEach(c=>{
+    const t = document.getElementById(c.fill); const band = document.getElementById(c.el);
+    if(!t) return;
+    if(c.mode==='fill'){
+      gsap.to(t,{scaleY:1, ease:'none', scrollTrigger:{trigger:band, start:'top 92%', end:'bottom 42%', scrub:.5}});
+    } else {
+      gsap.set(t, {y:12});
+      ScrollTrigger.create({trigger:band, start:'top 66%', once:true,
+        onEnter:()=>gsap.to(t,{opacity:1, y:0, duration:.8, ease:'power3.out'})});
+    }
+  });
+})();
+
+/* ============================================================
+   7. PRODUCTS — pinned horizontal gallery + collapse handoff
+   ============================================================ */
+(function(){
+  const section = $('#products'), track = $('#pTrack');
+  if(!section || !track) return;
+  const THEMES = { tech: $('#pbgTech'), hex: $('#pbgHex'), diag: $('#pbgDiag') };
+  const cards = $$('.pcard', track);
+
+  if(!DESK){ // mobile: native snap carousel + IO reveals
+    cards.forEach(c=>{ c.style.opacity=1; c.style.transform='none'; });
+    // entrance for each card via IO (cheap)
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }}),{threshold:.28});
+      cards.forEach(c=>{ c.classList.add('m-anim'); io.observe(c); });
+    } else cards.forEach(c=>c.classList.add('in'));
+    return;
+  }
+  if(!canAnim()) { cards.forEach(c=>{c.style.opacity=1;c.style.transform='none';}); return; }
+
+  let lastActive = -1;
+  const setActive = (i) => {
+    if(i===lastActive) return; lastActive = i;
+    const theme = cards[i] && cards[i].dataset.theme;
+    Object.entries(THEMES).forEach(([k,el])=>{ if(el) el.classList.toggle('on', k===theme); });
+  };
+  const dist = () => Math.max(0, track.scrollWidth - window.innerWidth + 60);
+  const HW = $('.hw', section);
+  const xTween = gsap.to(track, { x: () => -dist(), ease:'none',
+    scrollTrigger:{
+      trigger: HW, start:'top top', end:()=>'+=' + dist(), pin:true, scrub:.55, invalidateOnRefresh:true,
+      onUpdate:(self)=>{
+        const kids = track.children; if(!kids.length) return;
+        const stepW = kids.length>1 ? kids[1].offsetLeft-kids[0].offsetLeft : 1;
+        const moved = self.progress * dist();
+        const idx = clampN(Math.round((moved + window.innerWidth*.5 - cards[0].offsetLeft)/Math.max(stepW,1)), 0, kids.length-1);
+        setActive(idx);
+      } } });
+  // per-card entrance
+  cards.forEach((c,i)=>{
+    const from = i%3===0 ? {x:120, y:40, rotateY:-9} : (i%3===1 ? {x:70, y:95, rotateY:7} : {x:170, y:-34, rotateY:-5});
+    gsap.fromTo(c, from, { x:0, y:0, rotateY:0, ease:'power2.out',
+      scrollTrigger:{ trigger:c, containerAnimation:xTween, start:'left 108%', end:'left 72%', scrub:.8 }});
+    gsap.fromTo($('.pcard__pic img', c)||(c.firstElementChild&&$('.pcard__pic',c))||c, {scale:.85, rotate:(i%2? -4:4)},
+      { scale:1, rotate:0, ease:'none',
+        scrollTrigger:{ trigger:c, containerAnimation:xTween, start:'left 100%', end:'left 55%', scrub:1 }});
+  });
+  setActive(0);
+  // final field-release: last cards lean back as the pin completes
+  cards.slice(-2).forEach((c,i)=>gsap.to(c,{ rotateY: i? 10:-10, scale:.94, y:14, ease:'none',
+    scrollTrigger:{ trigger:HW, start:()=>'+=' + Math.max(0, dist() - window.innerHeight*.85), end:()=>'+=' + dist(), scrub:.6 }}));
+  // connector 2 — cards converge into the catalogue book
+  const band = $('#cn2'); const book = $('#collapseBook'); const thumbs = $$('#cnThumbs .cn-thumb');
+  if(band && book){
+    const tl2 = gsap.timeline({ scrollTrigger:{ trigger:band, start:'top top', end:'+=110%', pin:true, scrub:.5 }});
+    // thumbs fly in from around, converge center
+    thumbs.forEach((t,i)=>{
+      const a = (i/thumbs.length)*Math.PI*2;
+      gsap.set(t, {x: Math.cos(a)*window.innerWidth*.42, y: Math.sin(a)*window.innerHeight*.5 + 40, rotate: (i%2? 12:-14), opacity:0, scale:.8});
+    });
+    tl2.to(thumbs,{opacity:1, stagger:.04, duration:.18}, .05)
+       .to(thumbs,{ x: 0, y: 0, rotate: 0, scale:1.05, duration:.5, stagger:.02, ease:'power2.inOut'}, .28)
+       .to(book,{opacity:1, scale:1, y:0, rotate:0, duration:.5, ease:'power3.out'}, .62)
+       .to(book,{scale:1, duration:.2},'<')
+       .to(thumbs,{opacity:0, scale:1.5, filter:'blur(4px)', duration:.35}, .72)
+       .to('.cn-label#cn2label',{opacity:1, duration:.25}, .85)
+       .to({},{duration:.15});
+    gsap.set(book,{opacity:0, scale:.72, y:'12vh', rotate:-6});
+  }
+  // tilt on hover
+  if(FINE){ cards.forEach(c=>{ c.addEventListener('mousemove',e=>{ const r=c.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      c.style.transform=`rotateY(${px*9}deg) rotateX(${-py*7}deg) translateZ(12px)`; });
+    c.addEventListener('mouseleave',()=>{ c.style.transform=''; });
+  }); }
+})();
+
+/* ============================================================
+   8. CATALOGUE — book engine
+   ============================================================ */
+(function(){
+  const inner = $('#bookInner'); if(!inner) return;
+  const N = PRODUCTS.length + 3;
+  const LABELS = ['COVER','INDEX', ...PRODUCTS.map((p,i)=>`P.${String(i+3).padStart(2,'0')} · ${(p.name.split(' ')[0]||'').toUpperCase()}`),'CONTACT'];
+  let current = 0, busy = false, pgEls = [];
+
+  function checkerMini(){ return CHECKER_SVG.replace(/id="ckG"/,'id="ckG2"').replace(/id="ckS"/,'id="ckS2"').replace(/id="ckP"/,'id="ckP3"'); }
+  function pageHTML(p, i){
+    if(p.type==='cover'){ return `
+      <div class="cover-front" style="position:absolute;inset:0">
+        <div class="cov-spine"></div>
+        <div class="cov-top">
+          <img src="${IMG.badge}" alt="JK Industries"><b class="cov-name">JK&nbsp;<span>Industries</span></b>
+          <span class="ed-chip">EDITION ${new Date().getFullYear()}</span>
+        </div>
+        <div class="cov-hero">
+          <h2>Product<br><span>Catalogue</span></h2>
+          <p>Manhole Frame &amp; Cover Systems · Checkered Sheets · Sanitary Products</p>
+        </div>
+        <img class="cov-img" src="${IMG.p_pvc}" alt="">
+        <div class="cov-foot"><span>AHMEDABAD · GUJARAT · INDIA</span><b>VOL-01</b></div>
+        <div class="cov-stack" aria-hidden="true"></div>
+      </div>`; }
+    if(p.type==='index'){
+      const rows = PRODUCTS.map((pr,ix)=>`<tr data-ip="${ix+2}"><th scope="row">${String(ix+1).padStart(2,'0')}</th><td>${pr.name}</td><td style="text-align:right">${pr.specs[0][1]}</td></tr>`).join('');
+      return `<div class="cindex">
+        <div class="ci-head"><h3>Contents</h3><span>Ten engineered series</span></div>
+        <div><table><caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Catalogue contents — product families and headline specification</caption><tbody>${rows}</tbody></table></div>
+        <p class="ci-foot">CLICK A ROW TO JUMP · OR USE THE CHAPTER CHIPS ABOVE</p></div>`; }
+    if(p.type==='prod'){
+      const pr = PRODUCTS[p.i];
+      const pic = pr.img ? `<img src="${IMG[pr.img]}" alt="${pr.name}">` : checkerMini();
+      return `<div class="cpage">
+      <div class="cp-head"><span class="cp-no">PRS-${String(p.i+1).padStart(2,'0')}</span><span class="cp-tag">${pr.tag} — ${pr.mat}</span><span class="cp-brand">JK IND.</span></div>
+      <div class="cp-body">
+        <div class="cpage__pic"><span class="ped"></span>${pic}</div>
+        <div class="cp-spec">
+          <h3>${pr.name}</h3>
+          <p class="m">${pr.desc}</p>
+          <div class="cp-rows">${pr.specs.slice(0,4).map(s=>`<div class="row"><b>${s[0]}</b><span class="${s[1].toLowerCase().includes('request')?'dim':''}">${s[1]}</span></div>`).join('')}</div>
+          <div class="cpage__cta">
+            <button class="btn btn--gold btn--mini sheen" data-cata-prod="${p.i}">Request Quotation →</button>
+            <a class="wa-mini" href="https://wa.me/${PHONE_WA}?text=${encodeURIComponent('Hi JK Industries, I am interested in: ' + pr.name)}" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+      </div></div>`; }
+    return `<div style="display:flex;flex-direction:column;height:100%">
+      <p class="cpage__no" style="color:#B98200">THANK YOU</p>
+      <h3 style="font-family:var(--f-disp);font-weight:800;text-transform:uppercase;font-size:clamp(20px,2.2vw,32px);line-height:.95;margin-top:8px;color:#10161A">Let's build something<br>stronger together.</h3>
+      <div style="margin-top:18px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#39464E">
+        <b style="font-family:var(--f-mono);font-size:9.5px;letter-spacing:.2em;color:#8C999F">JK INDUSTRIES</b>
+        <a href="mailto:jk@manholecover.in" style="text-decoration:underline;text-underline-offset:3px">jk@manholecover.in</a>
+        <a href="tel:+917600447776" style="text-decoration:underline;text-underline-offset:3px">+91 76004 47776</a>
+        <span style="color:#5E6E76">92, Shreenath Industrial Estate, Nana Chiloda, Ranasan, Ahmedabad, Gujarat</span>
+      </div>
+      <div style="margin-top:auto;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn--gold btn--mini sheen" href="#contact">Full Contact Page</a>
+        <button class="btn btn--ghost-d btn--mini sheen" data-cata-search>Search The Range</button>
+      </div></div>`;
+  }
+  // build pages
+  const TYPES = [{type:'cover'},{type:'index'}, ...PRODUCTS.map((p,i)=>({type:'prod',i})), {type:'back'}];
+  let html = `<style>.pg__back{position:absolute;inset:0;transform:rotateY(180deg);backface-visibility:hidden;background:linear-gradient(120deg,#E6EBED,#DCE2E4)}</style>`;
+  for(let i=0;i<N;i++){
+    html += `<div class="pg${i>0?'':' cover-flip'}" data-p="${i}" style="z-index:${N-i}">
+      <div class="pg__face pg__face--front">${pageHTML(TYPES[i], i)}</div>
+      <div class="pg__face pg__face--back"></div>
+    </div>`;
+  }
+  inner.innerHTML = `<div class="board" aria-hidden="true"><img class="b-emblem" src="${IMG.badge}" alt=""></div>` + html;
+  pgEls = $$('.pg', inner);
+  const shade = document.createElement('style');
+  shade.textContent = '.pg__face--back{background:linear-gradient(120deg,#E7EBED 0%,#DEE3E5 100%)}.pg__face--back::after{content:"JK INDUSTRIES \\2014 DIGITAL ENGINEERING CATALOGUE";font-family:var(--f-mono);font-size:9px;letter-spacing:.3em;color:#98A4AA;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);white-space:nowrap}';
+  document.head.appendChild(shade);
+  // dots
+  const dots = $('#bookDots');
+  if(dots) TYPES.forEach((_,i)=>{ const d=document.createElement('i');
+    if(i===0)d.classList.add('on');
+    d.setAttribute('role','button'); d.setAttribute('tabindex','0'); d.setAttribute('aria-label','Go to page '+(i+1));
+    d.addEventListener('click',()=>goTo(i)); d.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); goTo(i);} });
+    dots.appendChild(d); });
+  const label = $('#pageLabel');
+  const idxRows = $$('.cindex tr[data-ip]', inner);
+  function syncUI(){
+    $$('#bookDots i').forEach((d,i)=>d.classList.toggle('on', i===current));
+    if(label) label.textContent = LABELS[current];
+    pgEls.forEach((el,ix)=>el.style.zIndex = (ix < current ? ix+1 : N - ix));
+    idxRows.forEach(r=>r.classList.remove('hl'));
+    const cur = TYPES[current];
+    if(cur && cur.type==='index'){ /* fine */ }
+  }
+  function goTo(target){
+    target = clampN(Math.round(target), 0, N-1);
+    if(target===current){ syncUI(); return; }
+    const ops = [];
+    pgEls.forEach((el,ix)=>{ const want = ix < target;
+      if(el.classList.contains('pg--flipped') !== want) ops.push(ix); });
+    ops.sort((a,b)=> target>current ? a-b : b-a);
+    current = target;
+    if(canAnim()){
+      busy = true;
+      ops.forEach((ix,k)=>setTimeout(()=>pgEls[ix].classList.toggle('pg--flipped', ix<target), 40 + k*150));
+      setTimeout(()=>{ busy=false; syncUI(); }, 40 + ops.length*150);
+    } else {
+      ops.forEach(ix=>pgEls[ix].classList.toggle('pg--flipped', ix<target));
+      syncUI();
+    }
+  }
+  syncUI();
+  on($('#nextPage'),'click',()=>goTo(current+1));
+  on($('#prevPage'),'click',()=>goTo(current-1));
+  // index rows + quotation buttons + search button
+  on(inner,'click',e=>{
+    const row = e.target.closest('tr[data-ip]');
+    if(row){ goTo(parseInt(row.dataset.ip,10)); return; }
+    const q = e.target.closest('[data-cata-prod]');
+    if(q){ e.preventDefault(); openQuote(PRODUCTS[parseInt(q.dataset.cataProd,10)].name); return; }
+    const s = e.target.closest('[data-cata-search]');
+    if(s){ const si = $('#cataSearch'); if(si){ si.focus(); si.scrollIntoView({behavior:'smooth', block:'center'}); } }
+  });
+  // chips
+  $$('[data-ch]').forEach(c=>on(c,'click',()=>{
+    $$('[data-ch]').forEach(x=>x.classList.remove('active')); c.classList.add('active');
+    const ch = parseInt(c.dataset.ch,10); if(isNaN(ch)) return;
+    jumpTo(ch);
+  }));
+  function jumpTo(t){
+    const st = (window.ScrollTrigger && ScrollTrigger.getById && ScrollTrigger.getById('cataPin')) || null;
+    if(st && canAnim() && DESK){
+      const p = t/(N-1);
+      window.scrollTo({ top: st.start + (st.end - st.start)*p, behavior:'smooth' });
+    } else {
+      pgEls.forEach((el,ix)=>{ if(el.classList.contains('pg--flipped') !== (ix<t)) el.classList.toggle('pg--flipped', ix<t); });
+      current = t; syncUI();
+    }
+  }
+  // search
+  const si = $('#cataSearch');
+  on(si,'input',()=>{ const q = si.value.trim().toLowerCase(); if(q.length<2) return;
+    const ix = PRODUCTS.findIndex(p=>(p.name+' '+p.mat+' '+p.tag).toLowerCase().includes(q));
+    if(ix<0) return;
+    const target = ix+2;
+    const chip = $$('[data-ch]').find(c=>c.dataset.ch===String(target));
+    if(chip) chip.click(); else jumpTo(target);
+    si.style.borderColor='rgba(255,182,0,.65)'; setTimeout(()=>si.style.borderColor='',900); });
+
+  // lightweight book entrance (no pin — driven by chips/search/arrows only)
+  if(GSAP_OK && !RM){
+    gsap.fromTo('#book',{y:40, scale:.94, opacity:.55},{y:0, scale:1, opacity:1, ease:'power3.out', duration:1,
+      scrollTrigger:{trigger:'#catalogue .book-wrap', start:'top 90%', end:'top 40%', scrub:1}});
+    gsap.fromTo('#catTabs',{opacity:.4, y:24},{opacity:1, y:0, ease:'power3.out',
+      scrollTrigger:{trigger:'#catalogue .book-wrap', start:'top 94%', end:'top 70%', scrub:1}});
+  }
+  if(canAnim() && MOBILE){
+    gsap.fromTo('#book',{y:60, scale:.94, opacity:.55},{y:0, scale:1, opacity:1, ease:'power3.out', duration:1,
+      scrollTrigger:{trigger:'#catalogue .cata-stage', start:'top 90%', end:'top 35%', scrub:1}});
+    gsap.fromTo('#catTabs',{opacity:.4, y:24},{opacity:1, y:0, ease:'power3.out',
+      scrollTrigger:{trigger:'#catalogue .cata-stage', start:'top 94%', end:'top 70%', scrub:1}});
+  }
+})();
+
+/* ============================================================
+   9. THE LINE — manufacturing walkthrough
+   ============================================================ */
+(function(){
+  const line = document.getElementById('theLine'); if(!line) return;
+  const trackEl = $('.spine-track', line);
+  const fillEl = document.getElementById('spineFill');
+  const rider = document.getElementById('rider');
+  const nodes = $$('.node', line);
+  const stages = $$('.lstage', line);
+  const stationSpans = $$('#stations span');
+  const scanbar = document.getElementById('scanSweep');
+
+  if(LITE){
+    if(fillEl) fillEl.style.transform = 'scaleY(.42)';
+    if(rider) rider.style.top = '32%';
+    nodes.forEach(n=>n.classList.add('on'));
+    stationSpans.forEach(s=>s.classList.add('on'));
+    if(scanbar) scanbar.style.display = 'none';
+    return;
+  }
+
+  /* position the 5 nodes at each stage's vertical centre */
+  const place = () => {
+    if(!trackEl) return;
+    const tb = trackEl.getBoundingClientRect();
+    const th = tb.height || 1;
+    stages.forEach((s,i)=>{
+      const node = nodes[i]; if(!node) return;
+      const sb = s.getBoundingClientRect();
+      const rel = (sb.top + sb.height/2 - tb.top) / th;
+      node.style.top = (clampN(rel*100, 2, 98)) + '%';
+    });
+  };
+  place(); on(window,'resize', place);
+
+  /* spine progress + rider travel */
+  const travel = () => trackEl ? Math.max(0, trackEl.getBoundingClientRect().height - 96) : 0;
+  gsap.fromTo(fillEl, {scaleY:0}, {scaleY:1, ease:'none',
+    scrollTrigger:{ trigger:line, start:'top 70%', end:'bottom 84%', scrub:.4, invalidateOnRefresh:true }});
+  gsap.fromTo(rider, {y:22}, {y:()=>travel(), ease:'none',
+    scrollTrigger:{ trigger:line, start:'top 70%', end:'bottom 84%', scrub:.4, invalidateOnRefresh:true }});
+  const riderImg = $('.rider img');
+  if(riderImg) gsap.fromTo(riderImg, {rotate:-8}, {rotate:6, ease:'none',
+    scrollTrigger:{ trigger:line, start:'top 70%', end:'bottom 84%', scrub:1 }});
+
+  /* station labels + nodes light up with progress */
+  ScrollTrigger.create({ trigger:line, start:'top 70%', end:'bottom 84%', scrub:true,
+    onUpdate(self){
+      const n = clampN(Math.floor(self.progress*stages.length), 0, stages.length-1);
+      stationSpans.forEach((sp,ix)=>sp.classList.toggle('on', ix<=n));
+      nodes.forEach((nd,ix)=>nd.classList.toggle('on', ix<=n));
+    }});
+
+  /* stage reveals */
+  stages.forEach((row,ix)=>{
+    const gn = $('.ghost-num', row);
+    if(gn && canAnim()) gsap.fromTo(gn,{opacity:0, xPercent: (ix%2? 9:-9), yPercent:6},{opacity:1, xPercent:0, yPercent:-6, ease:'none',
+      scrollTrigger:{trigger:row, start:'top bottom', end:'center 52%', scrub:1}});
+    if(ix === 2){ /* full-bleed fabrication */
+      const fig = $('.ff figure', row);
+      const img = $('img', fig);
+      if(fig && canAnim()){
+        const figReveal = () => gsap.to(fig,{clipPath:'inset(0% 0% 0% 0%)', duration:1.2, ease:'power3.inOut', overwrite:true,
+          onComplete:()=>gsap.set(fig,{clearProps:'clipPath'})});
+        gsap.set(fig,{clipPath:'inset(0% 0% 100% 0%)'});
+        ScrollTrigger.create({trigger:row, start:'top 72%', onEnter:figReveal, onEnterBack:figReveal});
+        if(img) gsap.fromTo(img,{scale:1.16},{scale:1, duration:1.8, ease:'power2.out',
+          scrollTrigger:{trigger:row, start:'top 72%', once:true}});
+      }
+      const fp = $('.fpanel', row);
+      if(fp && canAnim()){
+        const panelReveal = () => {
+          gsap.fromTo(fp,{opacity:0,y:46},{opacity:1,y:0,duration:.95,ease:'power3.out',overwrite:true});
+          gsap.fromTo(fp.children,{opacity:0,y:24},{opacity:1,y:0,stagger:.07,duration:.8,delay:.1,ease:'power3.out',overwrite:true});
+        };
+        ScrollTrigger.create({trigger:row, start:'top 58%', onEnter:panelReveal, onEnterBack:panelReveal});
+      }
+    } else {
+      const fig = $('.media figure', row);
+      const img = $('img', fig);
+      if(fig && canAnim()){
+        const figReveal = () => {
+          gsap.killTweensOf(fig);
+          gsap.fromTo(fig, {opacity:0, y:66, scale:.96},{opacity:1, y:0, scale:1, duration:1.05, ease:'power3.out', overwrite:true});
+        };
+        ScrollTrigger.create({trigger:fig, start:'top 80%', onEnter:figReveal, onEnterBack:figReveal});
+        if(img) gsap.fromTo(img,{scale:1.09},{scale:1, duration:1.6, ease:'power3.out',
+          scrollTrigger:{trigger:fig, start:'top 80%', once:true}});
+      }
+      const cp = $('.copy', row);
+      if(cp && canAnim()){
+        const copyReveal = () => {
+          gsap.killTweensOf(cp.children);
+          gsap.fromTo(cp.children,{opacity:0,y:24},{opacity:1,y:0,stagger:.07,duration:.8,ease:'power3.out',overwrite:true});
+        };
+        ScrollTrigger.create({trigger:cp, start:'top 82%', onEnter:copyReveal, onEnterBack:copyReveal});
+      }
+    }
+  });
+
+  /* pre-hide copy children + quote so lights-up plays cleanly on enter */
+  stages.forEach(row=>{
+    const cp = $('.copy', row) || $('.fpanel', row);
+    if(cp && canAnim()) gsap.set(cp.children,{opacity:0,y:24});
+  });
+  const qz = document.getElementById('fQuote');
+  if(qz && canAnim()) gsap.set([$('.qmark', qz), $('blockquote', qz), $('footer', qz)],{opacity:0,y:26});
+
+  /* reveal safety net — nothing stays hidden if enters the viewport unrevealed
+     (covers ticker stalls in background tabs, fast anchor jumps) */
+  (function(){
+    const rv = [];
+    stages.forEach(row=>{
+      const cp = $('.copy', row) || $('.fpanel', row);
+      if(cp) rv.push(cp);
+      const fg = $('.media figure', row) || $('.ff figure', row);
+      if(fg) rv.push(fg);
+    });
+    if(qz) rv.push(qz);
+    if(LITE || !canAnim() || !rv.length) return;
+    const net = setInterval(()=>{
+      let pending = 0;
+      rv.forEach(el=>{
+        if(el.dataset.jkRv === '1') return;
+        const r = el.getBoundingClientRect();
+        if(r.top < innerHeight*0.94 && r.bottom > 0){
+          el.dataset.jkRv = '1';
+          const isText = el.classList.contains('copy') || el.classList.contains('fpanel') || el.id === 'fQuote';
+          if(isText){
+            [...el.children].forEach(ch=>{ ch.style.opacity = 1; ch.style.transform = 'none'; });
+            el.style.opacity = 1; el.style.transform = 'none';
+          } else {
+            el.style.opacity = 1; el.style.transform = 'none'; el.style.clipPath = 'none';
+          }
+        } else pending++;
+      });
+      if(!pending) clearInterval(net);
+    }, 1000);
+  })();
+
+  /* inspection scan bar on stage 04 */
+  if(scanbar && canAnim()){
+    gsap.fromTo(scanbar,{top:'8%'},{top:'88%', duration:2.2, repeat:-1, yoyo:true, ease:'sine.inOut'});
+  }
+
+  /* founder quote */
+  const q = document.getElementById('fQuote');
+  if(q && canAnim()) ScrollTrigger.create({trigger:q, start:'top 84%', once:true,
+    onEnter:()=>gsap.fromTo([$('.qmark', q), $('blockquote', q), $('footer', q)],
+      {opacity:0,y:26},{opacity:1,y:0,stagger:.1,duration:.9,ease:'power3.out'})});
+
+  /* handoff connector (factory → quality) */
+  gsap.to('#cn4fill',{scaleY:1, ease:'none', scrollTrigger:{trigger:'#cn4', start:'top 92%', end:'bottom 42%', scrub:.5}});
+})();
+
+/* ============================================================
+   10. QUALITY
+   ============================================================ */
+(function(){
+  const stage = $('#scanStage'); if(!stage) return;
+  const beam = $('#qBeam');
+  const callouts = $$('.callout', stage);
+  const TH = [.18,.36,.54,.72,.86];
+  if(LITE){
+    callouts.forEach(c=>{ const l=c.querySelector('.lbl'); if(l){ l.style.opacity=1; l.style.transform='none'; } });
+    $$('.qa-steps article').forEach(a=>a.classList.add('in'));
+    if(beam) beam.style.display='none';
+  } else if(canAnim()){
+    ScrollTrigger.create({ trigger: stage, start:'top 72%', end:'top 6%', scrub:.45,
+      onUpdate:(s)=>{ const x = -22 + s.progress*144; if(beam) beam.style.left = x+'%';
+        callouts.forEach((c,i)=>{ const go = s.progress > TH[i];
+          const l = c.querySelector('.lbl'); if(!l) return;
+          l.style.opacity = go? 1 : 0; l.style.transform = go? 'none' : 'translateY(6px)'; }); } });
+    gsap.fromTo('.scan-stage img.subject',{scale:.93},{scale:1, ease:'none',
+      scrollTrigger:{trigger:stage, start:'top 82%', end:'top 30%', scrub:1}});
+    $$('.qa-steps article').forEach((a,i)=>ScrollTrigger.create({ trigger:a, start:'top 87%', once:true,
+      onEnter:()=>{ a.classList.add('in'); gsap.fromTo(a,{opacity:0,y:26},{opacity:1,y:0,duration:.7,delay:i*.06,ease:'power3.out'}); }}));
+  }
+})();
+
+/* ============================================================
+   11. BROCHURES + CLIENTS
+   ============================================================ */
+(function(){
+  const covers = $$('.bcover');
+  if(canAnim()){
+    covers.forEach((c,i)=>ScrollTrigger.create({ trigger:c, start:'top 90%', once:true,
+      onEnter:()=>gsap.fromTo(c,{opacity:0,y:70,rotate:(i%2? 3:-3)},{opacity:1,y:0,rotate:0,duration:.9,ease:'power3.out',delay:i*.08}) }));
+    covers.forEach((c,i)=>gsap.to(c,{yPercent: i%2? -5 : -9, ease:'none',
+      scrollTrigger:{trigger:'#broGrid', start:'top bottom', end:'bottom top', scrub:1}}));
+  }
+  if(FINE){ covers.forEach(c=>{
+    c.addEventListener('mousemove',e=>{ const r=c.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      c.style.transform=`translateY(-12px) rotateY(${px*8}deg) rotateX(${-py*6}deg)`; });
+    c.addEventListener('mouseleave',()=>{ c.style.transform=''; });
+  }); }
+  // testimonial batch
+  if(canAnim()){
+    $$('.tcard').forEach((t,i)=>ScrollTrigger.create({ trigger:t, start:'top 90%', once:true,
+      onEnter:()=>gsap.fromTo(t,{opacity:0,y:44},{opacity:1,y:0,duration:.8,delay:(i%3)*.08,ease:'power3.out'}) }));
+  }
+})();
+
+/* ============================================================
+   12. DEALER + CONTACT
+   ============================================================ */
+(function(){
+  if(canAnim()){
+    gsap.to('.dealer__vis .bgim',{ yPercent:6, ease:'none', scrollTrigger:{trigger:'#dealer', start:'top bottom', end:'bottom top', scrub:1}});
+    gsap.fromTo('.dealer__vis .content',{opacity:0, y:40},{opacity:1, y:0, ease:'power3.out',
+      scrollTrigger:{trigger:'#dealer', start:'top 65%', end:'top 25%', scrub:1}});
+    gsap.fromTo('.dealer__form',{opacity:0, y:40},{opacity:1, y:0, ease:'power3.out',
+      scrollTrigger:{trigger:'.dealer__form', start:'top 70%', end:'top 30%', scrub:1}});
+    gsap.fromTo('#cEmerge img',{opacity:0, scale:1.28, y:'9%'},
+      {opacity:.10, scale:1, y:'-3%', ease:'none', scrollTrigger:{trigger:'#contact', start:'top 88%', end:'center 48%', scrub:1}});
+    // connector 8: split merge feel
+    gsap.fromTo('.contact .inner',{opacity:0},{opacity:1, ease:'none', scrollTrigger:{trigger:'#contact', start:'top 70%', end:'top 25%', scrub:1}});
+    ScrollTrigger.create({trigger:'#contact .h-sec', start:'top 85%', once:true,
+      onEnter:()=>{ /* headline has its own reveal via data-reveal */ }});
+  }
+})();
+
+/* scroll back reveal for split-line when LITE */
+if(LITE){ $$('.split-line .word').forEach(w=>{ w.style.opacity=1; w.style.transform='none'; }); }
+
+/* ============================================================
+   13. MODALS
+   ============================================================ */
+const qm = $('#quoteModal'), ppm = $('#prodModal');
+function openModal(m){ if(!m) return; m.hidden=false; m.classList.add('open');
+  document.body.classList.add('lock');
+  const f = $('.modal__box input,.modal__box select,.modal__box button.modal__close', m);
+  if(f) setTimeout(()=>f.focus({preventScroll:true}), 90);
+}
+function closeModal(m){ if(!m) return; m.classList.remove('open');
+  setTimeout(()=>{ m.hidden=true; if(!$$('.modal.open').length) document.body.classList.remove('lock'); }, 330); }
+$$('[data-modal-cancel]').forEach(b=>on(b,'click',()=>{ closeModal(qm); closeModal(ppm); }));
+on(document,'keydown',e=>{ if(e.key==='Escape'){ closeModal(qm); closeModal(ppm); }});
+
+window.openProd = function(ix){
+  const p = PRODUCTS[ix]; if(!p || !ppm) return;
+  const pmImg = $('#pmImg'), pmPic = $('.pm-pic', ppm);
+  $('#pmTag').textContent = p.tag;
+  $('#pmTitle').textContent = p.name;
+  $('#pmDesc').textContent = p.desc;
+  $('#pmSpecs').innerHTML = p.specs.map(s=>`<div class="r"><b>${s[0]}</b><span class="${s[1].toLowerCase().includes('request')?'pm-dim':''}">${s[1]}</span></div>`).join('');
+  if(p.img){ pmPic.innerHTML = `<img id="pmImg" src="${IMG[p.img]}" alt="${p.name}">`; }
+  else { pmPic.innerHTML = CHECKER_SVG; }
+  const qBtn = $('#pmQuote');
+  if(qBtn){ qBtn.onclick = ()=>{ closeModal(ppm); setTimeout(()=>openQuote(p.name), 220); }; }
+  openModal(ppm);
+};
+window.openQuote = function(pref){
+  if(!qm) return;
+  const sel = $('#q_prod'), msg = $('#q_msg');
+  if(sel){
+    if(pref){ let ex = [...sel.options].find(o=>o.value===pref);
+      if(!ex){ ex = document.createElement('option'); ex.value = pref; ex.textContent = pref; sel.appendChild(ex); }
+      sel.value = pref;
+    } else sel.selectedIndex = 0;
+  }
+  if(msg){
+    if(pref && /catalogue/i.test(pref)) msg.value = 'Please share the complete product catalogue PDF.';
+    else if(pref && /brochure/i.test(pref)) msg.value = 'Please share the brochure PDF for this series.';
+    else if(pref && /quality/i.test(pref)) msg.value = 'Please share available quality documentation and product details.';
+  }
+  const done = $('#quoteDone'); if(done) done.classList.remove('show');
+  // reset fields
+  ['#q_name','#q_email','#q_phone','#q_qty'].forEach(s=>{ const f=$(s); if(f) f.value=''; });
+  openModal(qm);
+};
+on($('#bookInner'),'click',()=>{}); // delegated inside catalogue scope already
+$$('[data-prod]').forEach(b=>on(b,'click',()=>openProd(parseInt(b.dataset.prod,10))));
+$$('[data-open-quote]').forEach(b=>on(b,'click',()=>openQuote(b.dataset.pref||'')));
+$$('[data-open-catalogue-request]').forEach(b=>on(b,'click',()=>openQuote('Catalogue Request')));
+
+/* ============================================================
+   14. FORMS — validate, compose mailto/WhatsApp, copy
+   ============================================================ */
+(function(){
+  const emailOK = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  const phoneOK = v => /^[+()\-\s0-9]{7,18}$/.test(v.trim());
+  const RULES = {
+    dealer: [['#d_name','text'],['#d_email','email'],['#d_phone','phone'],['#d_company','text'],['#d_city','text'],['#d_state','text'],['#d_btype','text']],
+    contact:[['#c_name','text'],['#c_email','email'],['#c_phone','phone']],
+    quote:  [['#q_name','text'],['#q_email','email'],['#q_phone','phone'],['#q_prod','text']]
+  };
+  const setInvalid = (el,b)=>{ const f = el.closest('.field')||el; f.classList.toggle('invalid', b); };
+  ['dealerForm','contactForm','quoteForm'].forEach(id=>{
+    const form = document.getElementById(id); if(!form) return;
+    form.addEventListener('input',e=>{ const t=e.target; if(t.matches('input,select,textarea')) setInvalid(t,false); },{passive:true});
+  });
+  function compose(kind, pl){
+    const L = []; let subject = '';
+    if(kind==='dealer'){ subject = 'Dealer & Distributor Enquiry — website';
+      L.push('DEALER & DISTRIBUTOR ENQUIRY','------------------------------',
+        'Name: '+pl.name,'Company: '+pl.company,'Email: '+pl.email,'Phone: '+pl.phone,
+        'City: '+pl.city+'  ·  State: '+pl.state,'Business type: '+pl.btype,
+        'Interested categories: '+pl.cats);
+      if(pl.quantity) L.push('Expected quantity: '+pl.quantity);
+      if(pl.message){ L.push('','Message:'); L.push(pl.message); }
+    } else if(kind==='contact'){ subject = 'Website Enquiry — '+pl.name;
+      L.push('GENERAL ENQUIRY','------------------------------','Name: '+pl.name);
+      if(pl.phone) L.push('Phone: '+pl.phone);
+      L.push('Email: '+pl.email,'','Message:', pl.message || '-');
+    } else { subject = 'Quotation Request — '+pl.product;
+      L.push('QUOTATION REQUEST','------------------------------','Name: '+pl.name,
+        'Email: '+pl.email,'Phone: '+pl.phone,'Product: '+pl.product);
+      if(pl.quantity) L.push('Quantity: '+pl.quantity);
+      if(pl.message){ L.push('','Message:'); L.push(pl.message); }
+    }
+    L.push('','— sent from the JK Industries digital catalogue site');
+    const text = L.join('\n');
+    const body = L.join('\r\n');
+    const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const wa = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(subject+'\n\n'+text)}`;
+    return {mailto, wa, text};
+  }
+  function showDone(form, data){
+    const doneEl = form.querySelector('.form-done'); if(!doneEl) return;
+    const mail = form.querySelector('a[id$="Mail"]'), wa = form.querySelector('a[id$="Wa"]'), copy = form.querySelector('button[id$="Copy"]');
+    if(mail) mail.href = data.mailto;
+    if(wa) wa.href = data.wa;
+    if(copy) copy.onclick = ()=>{
+      const setIt = ()=>{ copy.textContent='Copied ✓'; setTimeout(()=>copy.textContent='Copy Details',1800); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(data.text).then(setIt).catch(()=>fallback()); }
+      else fallback();
+      function fallback(){ const ta=document.createElement('textarea'); ta.value=data.text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); setIt(); }catch(e){ window.prompt('Copy the enquiry below:', data.text); } ta.remove(); }
+    };
+    doneEl.classList.add('show');
+    try{ doneEl.focus({preventScroll:true}); }catch(e){}
+  }
+  function submitFlow(form, kind){
+    const doneEl = form.querySelector('.form-done'); if(doneEl) doneEl.classList.remove('show');
+    // honeypot
+    const trap = form.querySelector('.honeypot'); if(trap && trap.value) return;
+    let ok = true, focusEl = null;
+    (RULES[kind]||[]).forEach(([sel,type])=>{
+      const el = form.querySelector(sel); if(!el) return;
+      const val = el.value.trim(); const req = el.hasAttribute('required');
+      let bad = false;
+      if(req && !val) bad = true;
+      if(val && type==='email' && !emailOK(val)) bad = true;
+      if(val && type==='phone' && !phoneOK(val)) bad = true;
+      setInvalid(el, bad);
+      if(bad){ ok=false; focusEl = focusEl || el; }
+    });
+    let cats = '';
+    if(kind==='dealer'){
+      const checked = [...form.querySelectorAll('input[name="cat"]:checked')].map(i=>i.value);
+      cats = checked.join(', ');
+      if(!checked.length){ ok=false; const field = form.querySelector('.cats'); const f = field && field.closest('.field');
+        if(f){ f.classList.add('invalid'); const e=f.querySelector('.err'); if(e) e.style.display='block'; } }
+      const consent = form.querySelector('#d_consent'); const cErr = form.querySelector('#d_consentErr');
+      if(consent){ const bad = !consent.checked; if(cErr) cErr.style.display = bad? 'block':'none'; if(bad) ok=false; }
+    }
+    if(!ok){ if(focusEl){ try{ focusEl.focus({preventScroll:true}); }catch(e){} }
+      const firstBad = form.querySelector('.invalid'); if(firstBad && !focusEl){ firstBad.scrollIntoView? firstBad.scrollIntoView({behavior:'smooth',block:'center'}): 0; }
+      return false; }
+    const get = n => { const f = form.querySelector(`[name="${n}"]`); return f? f.value.trim() : ''; };
+    const payload = kind==='dealer'
+      ? {name:get('name'), company:get('company'), email:get('email'), phone:get('phone'), city:get('city'), state:get('state'), btype:get('business-type'), quantity:get('quantity'), message:get('message'), cats}
+      : kind==='contact' ? {name:get('name'), email:get('email'), phone:get('phone'), message:get('message')}
+      : {name:get('name'), email:get('email'), phone:get('phone'), product:get('product'), quantity:get('quantity'), message:get('message')};
+    const data = compose(kind, payload);
+    showDone(form, data);
+    try{ window.location.href = data.mailto; }catch(e){}
+    if(doneEl) doneEl.scrollIntoView({behavior: RM? 'auto':'smooth', block:'nearest'});
+    return true;
+  }
+  ['dealerForm','contactForm','quoteForm'].forEach(id=>{
+    const form = document.getElementById(id); if(!form) return;
+    form.addEventListener('submit',e=>{ e.preventDefault(); submitFlow(form, id==='dealerForm'?'dealer': id==='quoteForm'?'quote':'contact'); });
+  });
+})();
+
+/* refresh after everything settles */
+if(GSAP_OK && !RM){
+  on(window,'load',()=>ScrollTrigger.refresh());
+  setTimeout(()=>ScrollTrigger.refresh(), 1800);
+}
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', () => { try{ BOOT(); }catch(e){ document.body.classList.add('no-anim'); console.warn('[JK] boot error', e); } });
+} else setTimeout(()=>{ try{ BOOT(); }catch(e){ document.body.classList.add('no-anim'); console.warn('[JK] boot error', e); } }, 0);
+})();
+</script>
+</body>
+</html>
