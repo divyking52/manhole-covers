@@ -1,3 +1,6 @@
 *.zip
 .vercel
 node_modules
+
+.vercel
+.env*

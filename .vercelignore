@@ -1,0 +1,4 @@
+*.zip
+*.ps1
+serve.js
+.env.local
